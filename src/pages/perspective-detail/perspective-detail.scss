@@ -1,0 +1,13 @@
+page-perspective-detail {
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+    .text {
+        padding: 16px;
+    }
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+}

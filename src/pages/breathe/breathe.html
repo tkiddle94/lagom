@@ -1,0 +1,65 @@
+<!--
+  Generated template for the BreathePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header  class="navbar">
+
+  <ion-navbar color="primary" class="title">
+      <!-- <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button> -->
+    <ion-title class="title">Breathe</ion-title>
+   
+  </ion-navbar>
+  <div class="extra" (click)="extraSelected()">
+   <ion-icon name="add"></ion-icon>
+  </div>
+  
+</ion-header>
+
+
+<ion-content padding>
+    <div>
+        <video autoplay muted loop class="bg-vid">
+          <source src="../../assets/video/IE_Lagom_RevB.m4v" type="video/mp4">
+          
+        </video>
+      </div>
+    <div class="overlay" *ngIf="showTutorial">
+      <ion-fab right bottom class="info" (click)="dismissPressed()">
+          <button ion-fab mini color="primary"><ion-icon name="close"></ion-icon></button>
+      </ion-fab>
+      <div class="upper-tutorial">
+          Breathe promotes stillness and calm with the help of cathartic animations. Think of these animations as a visual metronome -- sitting in a comfortable position, breathe in through your nose all the while the animation is expanding, and then breathe out through your nose as the animation shrinks back down.
+      </div>
+      <div class="lower-tutorial">
+          Repeat this process for as long as you please!
+          Breathe can be used as the basis for a meditation--perhaps to steady oneself at the start of the day, or to wind down at the end--or simply as a quick pause during the day, or indeed both! It is entirely up to you!        
+      </div>
+    </div>
+        <!-- <ion-img class="info" width="20" height="20" src="../../assets/imgs/info.png"></ion-img> -->
+    <div *ngIf="showFab">
+        <ion-fab right bottom class="info">
+          <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
+          <ion-fab-list class="info" side="left" color="primary">
+            <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-youtube"></ion-icon></button>
+          </ion-fab-list>
+          <ion-fab-list side="top" color="primary">
+              <button ion-fab (click)="infoPressed()">info</button>
+              <button ion-fab (click)="sosPressed()">SOS</button>
+            </ion-fab-list>
+        </ion-fab>
+    </div>
+
+    <div class="breathe">
+        <ion-item>
+            Breaths
+            <ion-badge>{{breaths}}</ion-badge>
+        </ion-item>
+    </div>
+      
+</ion-content>

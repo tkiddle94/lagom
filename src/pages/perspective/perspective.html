@@ -1,0 +1,66 @@
+<!--
+  Generated template for the PerspectivePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+      <!-- <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button> -->
+    <ion-title>Perspective</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="outer-container">
+    <div class="center-container">
+        <button ion-button round (click)='onBegin()'>Begin</button>
+    </div>
+    <div class="container">
+      <div class={{this.days[0].completed}}>
+        <div class="text">
+          M
+        </div>
+      </div>
+      <div class={{this.days[1].completed}}>
+        <div class="text">
+            T
+        </div>
+      </div>
+      <div class={{this.days[2].completed}}>
+          <div class="text">
+              W
+            </div>
+      </div>
+      <div class={{this.days[3].completed}}>
+          <div class="text">
+              T
+            </div>
+      </div>
+      <div class={{this.days[4].completed}}>
+          <div class="text">
+              F
+            </div>
+      </div>
+      <div class={{this.days[5].completed}}>
+          <div class="text">
+              S
+            </div>
+      </div>
+      <div class={{this.days[6].completed}}>
+          <div class="text">
+              S
+            </div>
+      </div>
+    </div>
+    <div class="container">
+        <button ion-fab><ion-icon name="stats"></ion-icon></button>
+        <button ion-fab (click)='onHistory()'><ion-icon name="clock"></ion-icon></button>
+      </div>
+  </div>
+</ion-content>
