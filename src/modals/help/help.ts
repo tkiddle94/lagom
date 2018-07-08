@@ -26,4 +26,8 @@ export class HelpPage {
     this.viewCtrl.dismiss();
   }
 
+  clickMind() {
+    
+  }
+
 }

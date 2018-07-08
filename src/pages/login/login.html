@@ -14,17 +14,17 @@
     <div class="content-body">
       <ion-item>
         <ion-label stacked>EMAIL ADDRESS</ion-label>
-        <ion-input type="text" [(ngModel)]="user.emailAddress"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.emailAddress" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label stacked>PASSWORD</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <div class="forgot">
         <button ion-button clear small (click)='forgotPressed()'>Forgot Your Password?</button>      
       </div>
       <div class="login-button">
-        <button ion-button round full (click)='loginPressed(user)'>Log In</button>      
+        <button ion-button round full (click)='loginPressed(user)' [disabled]="!isEnabled">Log In</button>      
       </div>
     </div>
     <div class="footer">

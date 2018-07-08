@@ -4,33 +4,62 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content padding>
-    <div class="wrap">
-      <div class="header">
-          <div class="close">
-            <button ion-button icon-only clear color="secondary" (click)='close()' large>
+<ion-header class="shadow" no-border [class.statusbar-padding]="isCordova">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <button ion-button color="dark"  (click)='close()' large>
                 <ion-icon name="close"></ion-icon>
             </button>
-          </div>
-        <div class="title">
-          Help
-        </div>
-      </div>
+        </ion-buttons>
+        <ion-title>Support</ion-title>
+    </ion-toolbar>
+  </ion-header>
+<ion-content padding>
+    <div class="wrap">
+      
       <div class="outer-container">
+        <div align="center">
+          At Lagom we believe our app can be a powerful tool to help improve mental health, but there may be times when more support is needed. 
+          If you need to talk to someone here are a few options:
+        </div>
           <div class="row-container">
+            <ion-card (click)='clickMind()'>
+              <img src="../../assets/imgs/logo_mind_blue.png"/>
+              <ion-card-content>
+                <p>
+                  For anyone experiencing a mental health problem
+                </p>
+              </ion-card-content>
+            </ion-card>
+            <ion-card>
+              <img src="../../assets/imgs/logo_themix.png"/>
+              <ion-card-content>
+                <p>
+                  For people under 25
+                </p>
+              </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <img src="../../assets/imgs/logo_young.png"/>
+                <ion-card-content>
+                  <p>
+                    For parents
+                  </p>
+                </ion-card-content>
+              </ion-card>
               <ion-card>
-                  <img src="../../assets/imgs/logo_mind_blue.png"/>
+                  <img src="../../assets/imgs/logo_contact.png"/>
                   <ion-card-content>
                     <p>
-                      For anyone experiencing a mental health problem
+                      For the armed forces community
                     </p>
                   </ion-card-content>
                 </ion-card>
                 <ion-card>
-                    <img src="../../assets/imgs/logo_themix.png"/>
+                    <img src="../../assets/imgs/logo-blue-fixed.png"/>
                     <ion-card-content>
                       <p>
-                        For people under 25
+                        For men
                       </p>
                     </ion-card-content>
                   </ion-card>

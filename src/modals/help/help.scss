@@ -2,7 +2,7 @@ page-help {
     .wrap {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         height: 100%;
         .header {
@@ -20,27 +20,8 @@ page-help {
                 font-size: 2rem;
             }
         }
-        .content-body {
-            height: 100%;
-            width: 100%;
-            padding-top: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            .text {
-                padding: 0 1rem;
-                padding-bottom: 2rem;
-                text-align: center;
-            }
-            .forgot {
-                align-self: flex-end;
-                padding: 1rem 0;
-            }
-            .submit-button {
-                padding-top: 2rem;
-                width: 230px;
-            }
+        .outer-container {
+            padding-top: 2rem;
         }
     }
 }
