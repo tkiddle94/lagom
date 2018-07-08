@@ -22,18 +22,18 @@
           </div>
       <ion-item>
         <ion-label stacked>EMAIL ADDRESS</ion-label>
-        <ion-input type="text" [(ngModel)]="user.emailAddress"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.emailAddress" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label stacked>PASSWORD</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label stacked>REPEAT PASSWORD</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.passwordRepeat" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <div class="register-button">
-        <button ion-button round full (click)='loginPressed(user)'>Register</button>      
+        <button ion-button round full (click)='registerPressed(user)' [disabled]="!isEnabled">Register</button>      
       </div>
     </div>
     <div class="footer">

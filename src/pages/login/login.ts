@@ -31,22 +31,16 @@ export class LoginPage {
   }
 
   async loginPressed(user: User) {
-    try {
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.emailAddress, user.password);
-      if (result) {
-        // this.navCtrl.setRoot(TabsPage);
-      }
-      console.log(result);
-    }
-    catch(e) {
+    this.afAuth.auth.signInWithEmailAndPassword(user.emailAddress, user.password).then(() =>{
+        this.navCtrl.setRoot(TabsPage);
+    }, error => {
       let alert = this.alertCtrl.create({
         title: 'Sorry',
-        subTitle: e.message,
+        subTitle: error.message,
         buttons: ['Okay']
       });
       alert.present();
-
-    }
+    });
   }
 
   registerPressed() {

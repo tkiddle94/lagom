@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -15,17 +16,31 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class ForgotPasswordPage {
 
-  private emailAddress: string;
+  emailAddress: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private afAuth: AngularFireAuth, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgotPasswordPage');
   }
 
-  submitPressed() {
-
+  resetPassword() {
+    this.afAuth.auth.sendPasswordResetEmail(this.emailAddress).then(() =>{
+      let alert = this.alertCtrl.create({
+        title: 'Success!',
+        subTitle: `An email has been sent to: ${this.emailAddress}`,
+        buttons: ['Okay']
+      });
+      alert.present();
+    }, error => {
+      let alert = this.alertCtrl.create({
+        title: 'Sorry',
+        subTitle: error.message,
+        buttons: ['Okay']
+      });
+      alert.present();
+    });
   }
 
   close() {
