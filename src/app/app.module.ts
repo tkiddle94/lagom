@@ -3,23 +3,24 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { BreathePage } from '../pages/breathe/breathe';
 import { PerspectivePage } from '../pages/perspective/perspective';
-import { PerspectiveDetailPage } from '../pages/perspective-detail/perspective-detail';
-import { HistoryPage } from '../pages/history/history';
 import { FocusPage } from '../pages/focus/focus';
-import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
 import { TabsPage } from '../pages/tabs/tabs';
-import { FocusDetailPage } from '../pages/focus-detail/focus-detail';
-import { BreatheDetailPage } from '../pages/breathe-detail/breathe-detail';
-import { HelpPage } from '../pages/help/help'
 
+import { RegisterPage } from '../modals/register/register';
+import { ForgotPasswordPage } from '../modals/forgot-password/forgot-password';
+import { PerspectiveDetailPage } from '../modals/perspective-detail/perspective-detail';
+import { FocusDetailPage } from '../modals/focus-detail/focus-detail';
+import { BreatheDetailPage } from '../modals/breathe-detail/breathe-detail';
+import { HelpPage } from '../modals/help/help';
+import { HistoryPage } from '../modals/history/history';
+import { StatsPage } from '../modals/stats/stats';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { FIREBASE_CONFIG } from './app.firebase.config';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -28,11 +29,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     BreathePage,
     FocusPage,
     PerspectivePage,
-    WelcomePage,
     LoginPage,
     RegisterPage,
     TabsPage, 
@@ -40,22 +39,23 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HistoryPage, 
     FocusDetailPage,
     BreatheDetailPage,
-    HelpPage
+    HelpPage,
+    ForgotPasswordPage,
+    StatsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     BreathePage,
     FocusPage,
     PerspectivePage,
-    WelcomePage,
     LoginPage,
     RegisterPage,
     TabsPage,
@@ -63,7 +63,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HistoryPage,
     FocusDetailPage,
     BreatheDetailPage,
-    HelpPage
+    HelpPage,
+    ForgotPasswordPage,
+    StatsPage
   ],
   providers: [
     StatusBar,

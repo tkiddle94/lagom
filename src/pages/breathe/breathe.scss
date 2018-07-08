@@ -23,17 +23,18 @@ page-breathe {
 
     .overlay {
         background-color: black;
-        opacity: 0.8;
+        opacity: 0.6;
         position: absolute;
         left: 0px;
         top: 0px;
         width: 100%;
         height: 100%;
         .upper-tutorial {
+            position: absolute;
             color: white;
             text-align: center;
             padding: 10px;
-            top: 500px;
+            top: 0px;
         }
         .lower-tutorial {
             color: white;
@@ -50,11 +51,11 @@ page-breathe {
 
     .navbar {
         display: flex;
-        justify-content: space-between;
-        .extra {
-            padding: 20px;
-            background-color: #02b5ef;
-            color: white;
+        justify-content: flex-start;
+        .img-container {
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 1rem;
         }
     }
 

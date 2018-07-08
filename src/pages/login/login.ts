@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { BreathePage } from '../breathe/breathe';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { RegisterPage } from '../../modals/register/register';
+import { ForgotPasswordPage } from '../../modals/forgot-password/forgot-password';
 import { TabsPage } from '../tabs/tabs';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,7 +22,7 @@ export class LoginPage {
 
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -39,6 +40,16 @@ export class LoginPage {
     catch(e) {
       console.error(e);
     }
+  }
+
+  registerPressed() {
+    let registerModal = this.modalCtrl.create(RegisterPage);
+    registerModal.present();
+  }
+
+  forgotPressed() {
+    let forgotModal = this.modalCtrl.create(ForgotPasswordPage);
+    forgotModal.present();
   }
 
 }

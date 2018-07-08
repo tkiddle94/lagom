@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { leave } from '@angular/core/src/profile/wtf_impl';
-import { BreatheDetailPage } from '../breathe-detail/breathe-detail';
-import { HelpPage } from '../help/help';
+import { BreatheDetailPage } from '../../modals/breathe-detail/breathe-detail';
+import { HelpPage } from '../../modals/help/help';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
 /**
  * Generated class for the BreathePage page.
@@ -18,40 +19,34 @@ import { HelpPage } from '../help/help';
 })
 export class BreathePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
   }
 
   showTutorial: boolean = false;
   showFab: boolean= true;
-  public breaths: number = 1;
+  public breaths: number = 0;
  
   ionViewDidLoad() {
-    console.log(this.breaths);
-    setInterval(this.breathCount(this.breaths), 1000);
-  }
-
-  extraSelected() {
-    this.navCtrl.push(BreatheDetailPage);
-  }
-
-  sosPressed() {
-    this.navCtrl.push(HelpPage);
-  }
-
-  breathCount(count) {
-    //this.breaths + 1;
-    console.log(this.breaths);
-    // return this.breaths = this.breaths + 1;
-  }
-
-  infoPressed() {
-    this.showTutorial = true;
-    this.showFab = false;
+    let timer = TimerObservable.create(6000, 6000).subscribe(t => { this.breaths = t; });
   }
 
   dismissPressed() {
     this.showTutorial = false;
     this.showFab = true;
+  }
+
+  onHelp() {
+    let modal = this.modalCtrl.create(HelpPage);
+    modal.present();
+  }
+
+  onInformation() {
+    this.showTutorial = true;
+    this.showFab = false;
+  }
+
+  onAdd() {
+    this.navCtrl.push(BreatheDetailPage);
   }
 
 }

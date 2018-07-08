@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { BreathePage } from '../breathe/breathe';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { BreathePage } from '../../pages/breathe/breathe';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -20,11 +20,7 @@ export class RegisterPage {
 
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth, public viewCtrl: ViewController) {
   }
 
   async registerPressed(user: User) {
@@ -37,5 +33,9 @@ export class RegisterPage {
     }
     
     //this.navCtrl.setRoot(BreathePage);
+  }
+
+  close(){
+    this.viewCtrl.dismiss();
   }
 }

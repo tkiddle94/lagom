@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { PerspectiveDetailPage } from '../perspective-detail/perspective-detail';
-import { HistoryPage } from '../history/history';
+import { PerspectiveDetailPage } from '../../modals/perspective-detail/perspective-detail';
+import { HistoryPage } from '../../modals/history/history';
+import { HelpPage } from '../../modals/help/help'
+import { StatsPage } from '../../modals/stats/stats'
 
 /**
  * Generated class for the PerspectivePage page.
@@ -37,6 +39,16 @@ export class PerspectivePage {
 
   onHistory() {
     let modal = this.modalCtrl.create(HistoryPage);
+    modal.present();
+  }
+
+  onStats() {
+    let modal = this.modalCtrl.create(StatsPage);
+    modal.present();
+  }
+
+  onHelp() {
+    let modal = this.modalCtrl.create(HelpPage);
     modal.present();
   }
 

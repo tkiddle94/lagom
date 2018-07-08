@@ -6,8 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { HomePage } from '../pages/home/home';
-import { WelcomePage } from '../pages/welcome/welcome';
+import { LoginPage } from '../pages/login/login';
 import { BreathePage } from '../pages/breathe/breathe';
 import { PerspectivePage } from '../pages/perspective/perspective';
 import { FocusPage } from '../pages/focus/focus';
@@ -18,7 +17,7 @@ import { FocusPage } from '../pages/focus/focus';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = WelcomePage;
+  rootPage:any = LoginPage;
 
   // pages: Array<{title: string, component: any}>;
 

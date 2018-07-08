@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
- * Generated class for the PerspectiveDetailPage page.
+ * Generated class for the ForgotPasswordPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,21 +10,25 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 @IonicPage()
 @Component({
-  selector: 'page-perspective-detail',
-  templateUrl: 'perspective-detail.html',
+  selector: 'page-forgot-password',
+  templateUrl: 'forgot-password.html',
 })
-export class PerspectiveDetailPage {
+export class ForgotPasswordPage {
 
-  feelingValue: number = 5;
+  private emailAddress: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PerspectiveDetailPage');
+    console.log('ionViewDidLoad ForgotPasswordPage');
   }
 
-  dismiss() {
+  submitPressed() {
+
+  }
+
+  close() {
     this.viewCtrl.dismiss();
   }
 }

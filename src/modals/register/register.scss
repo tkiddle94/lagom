@@ -1,0 +1,55 @@
+page-register {
+    ion-label {
+        color: #adadad;
+    }
+    ion-button {
+        box-shadow: 5px 10px #888888;
+    }
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            .header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 1rem;
+                width: 100%;
+                position: relative;
+                .close {
+                    position: absolute;
+                    left: 0%;
+                }
+                .title {
+                    font-size: 2rem;
+                }
+            }
+            .content-body {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 3rem;
+                ion-item {
+                    padding-top: 1rem;
+                }
+                .text {
+                    padding: 0 1rem;
+                    padding-bottom: 2rem;
+                    text-align: center;
+                }
+                .forgot {
+                    align-self: flex-end;
+                    padding: 1rem 0;
+                }
+                .register-button {
+                    padding-top: 2rem;
+                    width: 230px;
+                }
+            }
+        }
+}

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FocusDetailPage } from '../focus-detail/focus-detail'
+import { FocusDetailPage } from '../../modals/focus-detail/focus-detail'
 
 /**
  * Generated class for the FocusPage page.

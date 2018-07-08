@@ -1,16 +1,36 @@
 page-perspective {
+    .navbar {
+        .header {
+            display: flex;
+            .img-container {
+                width: 75px;
+                padding-right: 20px;
+                padding-left: 10px;
+            }
+            .title {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2rem;
+            }
+        }
+    }
     .outer-container {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
+        align-items: center;
         height: 100%;
         .center-container {
             display: flex;
             justify-content: center;
+            width: 230px;
         }
         .container {
             display: flex;
             justify-content: space-between;
+            width: 100%;
             .uncomplete {
                 justify-content: center;
                 display: flex;
@@ -32,6 +52,11 @@ page-perspective {
                 border-radius: 20px;
                 background-color: #02b5ef;
             }
+        }
+        .bottom-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
         }
     }
 }

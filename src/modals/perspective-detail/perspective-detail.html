@@ -1,0 +1,69 @@
+<!--
+  Generated template for the PerspectiveDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header class="shadow" no-border [class.statusbar-padding]="isCordova">
+        <ion-toolbar color="light">
+            <ion-buttons slot="start">
+                <button ion-button color="dark"  (click)='close()'>
+                    <ion-icon name="close"></ion-icon>
+                </button>
+            </ion-buttons>
+            <ion-title>{{dateTitle}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  <ion-content padding no-bounce class="content-container">
+    <div class="wrapper">
+        <ion-slides>
+            <ion-slide>
+                    <div class="slide-container">
+                        <div class="text">{{questions[0]}}</div>
+                        <div *ngIf="readOnly; else other">
+                            <ion-range min="0" max="10" [(ngModel)]="feelingValue" color="primary" disabled>
+                            <ion-badge range-left>0</ion-badge>
+                            <ion-badge range-right>10</ion-badge>
+                            </ion-range>
+                        </div>
+                        <ng-template #other>
+                            <ion-range min="0" max="10" [(ngModel)]="feelingValue" color="primary">
+                            <ion-badge range-left>0</ion-badge>
+                            <ion-badge range-right>10</ion-badge>
+                            </ion-range>                            
+                        </ng-template>
+                        <div class="center">
+                            <ion-badge item-center>{{feelingValue}}</ion-badge>        
+                        </div>
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide-container">
+                        <div class="text">{{questions[1]}}</div>
+                        <textarea [class]="readonly" [placeholder]="answers[0]" [(ngModel)]="answers[0]" [readonly]="readOnly"></textarea>
+                        <div class="text">{{questions[2]}}</div>
+                        <textarea [placeholder]="answers[1]" [(ngModel)]="answers[1]" [readonly]="readOnly"></textarea>
+                    </div>
+                </ion-slide>
+                <ion-slide> 
+                    <div class="slide-container">
+                        <div class="text">{{questions[3]}}</div>
+                        <textarea [placeholder]="answers[2]" [(ngModel)]="answers[2]" [readonly]="readOnly"></textarea>
+                        <div class="text">{{questions[4]}}</div> 
+                        <textarea [placeholder]="answers[3]" [(ngModel)]="answers[3]" [readonly]="readOnly"></textarea>
+                    </div>
+                </ion-slide>
+        </ion-slides>
+    </div>
+  </ion-content>
+  <ion-footer>
+      <ion-toolbar>
+          <ion-buttons slot="primary">
+              <button ion-button color="primary"(click)="presentConfirm()">
+                  Save
+              </button>
+          </ion-buttons>
+      </ion-toolbar>
+  </ion-footer>

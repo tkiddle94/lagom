@@ -6,16 +6,23 @@
 -->
 <ion-header  class="navbar">
 
-  <ion-navbar color="primary" class="title">
-      <!-- <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button> -->
-    <ion-title class="title">Breathe</ion-title>
+  <ion-navbar color="light" class="title">
+      <div class="img-container">
+        <img src="../../assets/imgs/lagom_simple.png" height="28px" width="30px"/>        
+      </div>
    
-  </ion-navbar>
-  <div class="extra" (click)="extraSelected()">
-   <ion-icon name="add"></ion-icon>
-  </div>
+    <ion-buttons end>
+        <button ion-button icon-only (click)='onHelp()'>
+            <ion-icon name="help-buoy"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)='onInformation()'>
+            <ion-icon name="information"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)='onAdd()'>
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
   
 </ion-header>
 
@@ -31,13 +38,34 @@
       <ion-fab right bottom class="info" (click)="dismissPressed()">
           <button ion-fab mini color="primary"><ion-icon name="close"></ion-icon></button>
       </ion-fab>
-      <div class="upper-tutorial">
-          Breathe promotes stillness and calm with the help of cathartic animations. Think of these animations as a visual metronome -- sitting in a comfortable position, breathe in through your nose all the while the animation is expanding, and then breathe out through your nose as the animation shrinks back down.
-      </div>
-      <div class="lower-tutorial">
-          Repeat this process for as long as you please!
-          Breathe can be used as the basis for a meditation--perhaps to steady oneself at the start of the day, or to wind down at the end--or simply as a quick pause during the day, or indeed both! It is entirely up to you!        
-      </div>
+      <ion-slides>
+        <ion-slide>
+            <div class="upper-tutorial">
+                Breathe promotes stillness and calm with the help of cathartic animations. 
+            </div>
+            <div class="lower-tutorial">
+                Think of these animations as a visual metronome.
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="upper-tutorial">
+                Sitting in a comfortable position, breathe in through your nose all the while the animation is expanding,
+                 
+            </div>
+            <div class="lower-tutorial">
+                and then breathe out through your nose as the animation shrinks back down.  
+                Repeat this process for as long as you please!
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="upper-tutorial">
+                    Breathe can be used as the basis for a meditation--perhaps to steady oneself at the start of the day, 
+            </div>
+            <div class="lower-tutorial">
+                or to wind down at the end--or simply as a quick pause during the day, or indeed both! It is entirely up to you!        
+            </div>
+        </ion-slide>
+      </ion-slides>
     </div>
         <!-- <ion-img class="info" width="20" height="20" src="../../assets/imgs/info.png"></ion-img> -->
     <div *ngIf="showFab">
@@ -55,7 +83,7 @@
         </ion-fab>
     </div>
 
-    <div class="breathe">
+    <div class="breathe" *ngIf="showFab">
         <ion-item>
             Breaths
             <ion-badge>{{breaths}}</ion-badge>

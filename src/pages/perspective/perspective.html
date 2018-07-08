@@ -4,23 +4,36 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header  class="navbar">
 
-  <ion-navbar color="primary">
-      <!-- <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button> -->
-    <ion-title>Perspective</ion-title>
-  </ion-navbar>
-
+  <ion-navbar color="light">
+    <div class="header">
+      <div class="img-container">
+        <img src="../../assets/imgs/lagom_simple.png" height="28px" width="30px"/>        
+      </div>
+      <div class="title">
+        Perspective
+      </div>
+    </div>
+    <ion-buttons end>
+        <button ion-button icon-only (click)='onHelp()'>
+            <ion-icon name="help-buoy"></ion-icon>
+        </button>
+        <button ion-button icon-only>
+            <ion-icon name="information"></ion-icon>
+        </button>
+        <button ion-button icon-only>
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+  
 </ion-header>
 
 
 <ion-content padding>
   <div class="outer-container">
-    <div class="center-container">
-        <button ion-button round (click)='onBegin()'>Begin</button>
-    </div>
+    
     <div class="container">
       <div class={{this.days[0].completed}}>
         <div class="text">
@@ -58,9 +71,12 @@
             </div>
       </div>
     </div>
-    <div class="container">
-        <button ion-fab><ion-icon name="stats"></ion-icon></button>
-        <button ion-fab (click)='onHistory()'><ion-icon name="clock"></ion-icon></button>
+    <div class="center-container">
+      <button ion-button round full (click)='onBegin()'>Begin</button>
+  </div>
+    <div class="bottom-container">
+      <button ion-button round (click)='onHistory()'>History</button>
+      <button ion-button round (click)='onStats()'>Stats</button>
       </div>
   </div>
 </ion-content>
