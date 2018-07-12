@@ -3,13 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
-import { TabsPage } from '../pages/tabs/tabs';
-
 import { LoginPage } from '../pages/login/login';
-import { BreathePage } from '../pages/breathe/breathe';
-import { PerspectivePage } from '../pages/perspective/perspective';
-import { FocusPage } from '../pages/focus/focus';
 
 @Component({
   templateUrl: 'app.html'

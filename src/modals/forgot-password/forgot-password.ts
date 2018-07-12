@@ -30,7 +30,12 @@ export class ForgotPasswordPage {
       let alert = this.alertCtrl.create({
         title: 'Success!',
         subTitle: `An email has been sent to: ${this.emailAddress}`,
-        buttons: ['Okay']
+        buttons: [{
+          text: 'Okay',
+          handler: () => {
+            this.viewCtrl.dismiss();
+          }
+      }]
       });
       alert.present();
     }, error => {
