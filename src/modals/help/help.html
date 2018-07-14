@@ -7,7 +7,7 @@
 <ion-header class="shadow" no-border [class.statusbar-padding]="isCordova">
     <ion-toolbar color="light">
         <ion-buttons slot="start">
-            <button ion-button color="dark"  (click)='close()' large>
+            <button ion-button icon-only clear color="secondary" (click)='close()' large>
                 <ion-icon name="close"></ion-icon>
             </button>
         </ion-buttons>
@@ -20,10 +20,11 @@
       <div class="outer-container">
         <div align="center">
           At Lagom we believe our app can be a powerful tool to help improve mental health, but there may be times when more support is needed. 
-          If you need to talk to someone here are a few options:
+          If you need to talk to someone urgently please call the Samaritans:
+          <button ion-button round full (click)='callSamaritans()'>Call</button>     
         </div>
           <div class="row-container">
-            <ion-card (click)='clickMind()'>
+            <ion-card (click)="openWithSystemBrowser('https://www.mind.org.uk/information-support/helplines/')">
               <img src="../../assets/imgs/logo_mind_blue.png"/>
               <ion-card-content>
                 <p>
@@ -31,7 +32,7 @@
                 </p>
               </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card (click)="openWithSystemBrowser('http://www.themix.org.uk/get-support')">
               <img src="../../assets/imgs/logo_themix.png"/>
               <ion-card-content>
                 <p>
@@ -39,7 +40,7 @@
                 </p>
               </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card (click)="openWithSystemBrowser('https://youngminds.org.uk/find-help/')">
                 <img src="../../assets/imgs/logo_young.png"/>
                 <ion-card-content>
                   <p>
@@ -47,7 +48,7 @@
                   </p>
                 </ion-card-content>
               </ion-card>
-              <ion-card>
+              <ion-card (click)="openWithSystemBrowser('https://www.contactarmedforces.co.uk/')">
                   <img src="../../assets/imgs/logo_contact.png"/>
                   <ion-card-content>
                     <p>
@@ -55,7 +56,7 @@
                     </p>
                   </ion-card-content>
                 </ion-card>
-                <ion-card>
+                <ion-card (click)="openWithSystemBrowser('https://www.thecalmzone.net/help/get-help/')">
                     <img src="../../assets/imgs/logo-blue-fixed.png"/>
                     <ion-card-content>
                       <p>

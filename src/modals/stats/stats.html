@@ -14,27 +14,25 @@
       <ion-title>Stats</ion-title>
   </ion-toolbar>
 </ion-header>
+
+    
 <ion-content padding no-bounce class="content-container">
-    <ion-scroll direction="x" class="wide-as-needed" ng-touch="mouseoverWideDiv()" on-release="mouseleaveWideDiv()">
-        <div class="chart-area-wrapper">
-            <canvas #barCanvas></canvas>
-        </div>
-    </ion-scroll>
+        <ion-toolbar>
+                <div padding>
+                    <ion-segment [(ngModel)]="time" (ionChange)="segmentChanged()">
+                        <ion-segment-button value="week">
+                        Week
+                        </ion-segment-button>
+                        <ion-segment-button value="month">
+                        Month
+                        </ion-segment-button>
+                        <ion-segment-button value="all">
+                        Year
+                        </ion-segment-button>
+                    </ion-segment>
+                    </div>
+        </ion-toolbar>
+    <div class="chart-area-wrapper">
+        <canvas #barCanvas></canvas>
+    </div>
 </ion-content>
-<ion-footer>
-    <ion-toolbar>
-            <div padding>
-                <ion-segment [(ngModel)]="time" (ionChange)="segmentChanged()">
-                    <ion-segment-button value="week">
-                    Week
-                    </ion-segment-button>
-                    <ion-segment-button value="month">
-                    Month
-                    </ion-segment-button>
-                    <ion-segment-button value="all">
-                    All Time
-                    </ion-segment-button>
-                </ion-segment>
-                </div>
-    </ion-toolbar>
-</ion-footer>

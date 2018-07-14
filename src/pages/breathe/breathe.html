@@ -7,10 +7,16 @@
 <ion-header  class="navbar">
 
   <ion-navbar color="light" class="title">
-      <div class="img-container">
-        <img src="../../assets/imgs/lagom_simple.png" height="28px" width="30px" (click)='onProfileClick()'/>        
-      </div>
-   
+      <div class="header">
+          <div class="img-container">
+            <img src="../../assets/imgs/lagom_simple.png" height="28px" width="30px" (click)='onProfileClick()'/>        
+          </div>
+          <div class="title">
+                Breathe
+              </div>
+
+          
+    </div>
     <ion-buttons end>
         <button ion-button icon-only (click)='onHelp()'>
             <ion-icon name="help-buoy"></ion-icon>
@@ -68,20 +74,7 @@
       </ion-slides>
     </div>
         <!-- <ion-img class="info" width="20" height="20" src="../../assets/imgs/info.png"></ion-img> -->
-    <div *ngIf="showFab">
-        <ion-fab right bottom class="info">
-          <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
-          <ion-fab-list class="info" side="left" color="primary">
-            <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-            <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
-            <button ion-fab><ion-icon name="logo-youtube"></ion-icon></button>
-          </ion-fab-list>
-          <ion-fab-list side="top" color="primary">
-              <button ion-fab (click)="infoPressed()">info</button>
-              <button ion-fab (click)="sosPressed()">SOS</button>
-            </ion-fab-list>
-        </ion-fab>
-    </div>
+   
 
     <div class="breathe" *ngIf="showFab">
         <ion-item>

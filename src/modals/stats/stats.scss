@@ -6,11 +6,9 @@ page-stats {
             }
         }
         .chart-area-wrapper {
-            width: 1500px;
             overflow-x: scroll;
             canvas {
                 width: 100% !important;
-                max-width: 800px;
                 height: auto !important;
               }
             }
