@@ -35,37 +35,39 @@
   <div class="outer-container">
     
     <div class="container">
-      <div class={{this.days[0].completed}}>
-        <div class="text">
-          M
+      <div class={{this.days[0].currentDay}}>
+        <div class={{this.days[0].completed}} (click)='dayClicked(0)'>
+          <div class="text">
+            M
+          </div>
         </div>
       </div>
-      <div class={{this.days[1].completed}}>
+      <div class={{this.days[1].completed}} (click)='dayClicked(1)'>
         <div class="text">
             T
         </div>
       </div>
-      <div class={{this.days[2].completed}}>
+      <div class={{this.days[2].completed}} (click)='dayClicked(2)'>
           <div class="text">
               W
             </div>
       </div>
-      <div class={{this.days[3].completed}}>
+      <div class={{this.days[3].completed}} (click)='dayClicked(3)'>
           <div class="text">
               T
             </div>
       </div>
-      <div class={{this.days[4].completed}}>
+      <div class={{this.days[4].completed}} (click)='dayClicked(4)'>
           <div class="text">
               F
             </div>
       </div>
-      <div class={{this.days[5].completed}}>
+      <div class={{this.days[5].completed}} (click)='dayClicked(5)'>
           <div class="text">
               S
             </div>
       </div>
-      <div class={{this.days[6].completed}}>
+      <div class={{this.days[6].completed}} (click)='dayClicked(6)'>
           <div class="text">
               S
             </div>

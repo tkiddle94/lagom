@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
-import { leave } from '@angular/core/src/profile/wtf_impl';
 import { BreatheDetailPage } from '../../modals/breathe-detail/breathe-detail';
 import { HelpPage } from '../../modals/help/help';
 import { LoginPage } from '../login/login';
@@ -29,7 +28,7 @@ export class BreathePage {
   public breaths: number = 0;
  
   ionViewDidLoad() {
-    let timer = TimerObservable.create(6000, 6000).subscribe(t => { this.breaths = t; });
+    const timer = TimerObservable.create(6000, 6000).subscribe(t => { this.breaths = t; });
   }
 
   dismissPressed() {

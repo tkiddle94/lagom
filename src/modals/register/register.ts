@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
-import { BreathePage } from '../../pages/breathe/breathe';
 import { User } from '../../models/user';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { AngularFireAuth } from 'angularfire2/auth';
