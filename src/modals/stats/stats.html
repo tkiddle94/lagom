@@ -7,7 +7,7 @@
 <ion-header class="shadow" no-border [class.statusbar-padding]="isCordova">
   <ion-toolbar color="light">
       <ion-buttons slot="start">
-          <button ion-button color="dark"  (click)='close()'>
+          <button ion-button color="dark"  (click)='close()' large icon-only clear>
               <ion-icon name="close"></ion-icon>
           </button>
       </ion-buttons>
@@ -17,22 +17,31 @@
 
     
 <ion-content padding no-bounce class="content-container">
-        <ion-toolbar>
-                <div padding>
-                    <ion-segment [(ngModel)]="time" (ionChange)="segmentChanged()">
-                        <ion-segment-button value="week">
-                        Week
-                        </ion-segment-button>
-                        <ion-segment-button value="month">
-                        Month
-                        </ion-segment-button>
-                        <ion-segment-button value="all">
-                        Year
-                        </ion-segment-button>
-                    </ion-segment>
-                    </div>
-        </ion-toolbar>
+    <div class="selector-container">
+        <button ion-button color="Primary"  large icon-only clear (click)='onArrowPress(1)' [disabled]='!isBackward'>
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+        <div class="title">
+            {{title}}
+        </div>
+        <button ion-button color="Primary"  large icon-only clear (click)='onArrowPress(-1)' [disabled]='!isForward'>
+            <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+    </div>
     <div class="chart-area-wrapper">
         <canvas #barCanvas></canvas>
+    </div>
+    <div class="segment-container">
+        <ion-segment [(ngModel)]="time" (ionChange)="segmentChanged()">
+            <ion-segment-button value="week">
+            Week
+            </ion-segment-button>
+            <ion-segment-button value="month">
+            Month
+            </ion-segment-button>
+            <ion-segment-button value="all">
+            Year
+            </ion-segment-button>
+        </ion-segment>
     </div>
 </ion-content>

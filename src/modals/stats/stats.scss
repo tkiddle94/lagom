@@ -5,8 +5,17 @@ page-stats {
                 height: 1000px;
             }
         }
+        .segment-container {
+            padding-top: 1rem;
+        }
+        .selector-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+        }
         .chart-area-wrapper {
-            overflow-x: scroll;
+            padding-top: 5rem;
             canvas {
                 width: 100% !important;
                 height: auto !important;
