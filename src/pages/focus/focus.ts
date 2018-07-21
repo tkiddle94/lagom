@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { FocusDetailPage } from '../../modals/focus-detail/focus-detail'
+import { HelpPage } from '../../modals/help/help'
 
 /**
  * Generated class for the FocusPage page.
@@ -16,7 +17,7 @@ import { FocusDetailPage } from '../../modals/focus-detail/focus-detail'
 })
 export class FocusPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
   }
 
   meditationSelected() {
@@ -25,6 +26,11 @@ export class FocusPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FocusPage');
+  }
+
+  onHelp() {
+    let modal = this.modalCtrl.create(HelpPage);
+    modal.present();
   }
 
 }
