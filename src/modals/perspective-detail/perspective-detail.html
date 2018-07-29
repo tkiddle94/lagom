@@ -6,16 +6,16 @@
 -->
 
 
-<ion-header class="shadow" no-border >
-        <ion-toolbar color="light">
-            <ion-buttons slot="start">
-                <button ion-button icon-only clear color="secondary" (click)='close()' large>
-                    <ion-icon name="close"></ion-icon>
-                </button>
-            </ion-buttons>
-            <ion-title>{{dateTitle}}</ion-title>
-        </ion-toolbar>
-      </ion-header>
+<ion-header class="shadow" no-border [class.statusbar-padding]="isCordova">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <button ion-button color="dark"  (click)='close()' large icon-only clear>
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{dateTitle}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
   <ion-content padding no-bounce class="content-container">
     <div class="wrapper">
         <ion-slides>
