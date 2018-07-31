@@ -31,6 +31,7 @@ export class PerspectivePage {
     {day: 'S', completed: 'uncomplete', currentDay: '', dayCode: 'Sat'},
     {day: 'S', completed: 'uncomplete', currentDay: '', dayCode: 'Sun'}
   ];
+  week: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth) {
   }
@@ -42,7 +43,6 @@ export class PerspectivePage {
     if (dd < 0) {
       dd = 6;
     }
-    let now = moment().format('DD MMM');
     let startOfWeek: any;
     let endOfWeek: any;
     if (dd === 6) {
@@ -53,7 +53,7 @@ export class PerspectivePage {
       endOfWeek = moment().endOf('week').subtract(1, 'days').format('DD');
     }
     this.days[dd].currentDay = 'current';
-    let week = startOfWeek + ' - ' + endOfWeek;
+    this.week = startOfWeek + ' - ' + endOfWeek;
 
 
     let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
@@ -61,7 +61,7 @@ export class PerspectivePage {
       data.forEach((object, index) => {
        let obj: any = object;
        obj.forEach(element => {
-          if (element.Title === week) {
+          if (element.Title === this.week) {
           this.days[element.dayCode].completed = 'complete';
         }
       });
@@ -72,7 +72,7 @@ export class PerspectivePage {
 
   onBegin() {
     //this.navCtrl.setRoot(PerspectiveDetailPage);
-    let modal = this.modalCtrl.create(PerspectiveDetailPage);
+    let modal = this.modalCtrl.create(PerspectiveDetailPage, { week: this.week});
     modal.present();
   }
 
