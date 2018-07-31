@@ -3,20 +3,20 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { BreathePage } from '../pages/breathe/breathe';
-import { PerspectivePage } from '../pages/perspective/perspective';
-import { FocusPage } from '../pages/focus/focus';
-import { LoginPage } from '../pages/login/login';
+import { BreathePageModule } from '../pages/breathe/breathe.module';
+import { PerspectivePageModule } from '../pages/perspective/perspective.module';
+import { FocusPageModule } from '../pages/focus/focus.module';
+import { LoginPageModule } from '../pages/login/login.module'
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { RegisterPage } from '../modals/register/register';
-import { ForgotPasswordPage } from '../modals/forgot-password/forgot-password';
-import { PerspectiveDetailPage } from '../modals/perspective-detail/perspective-detail';
-import { FocusDetailPage } from '../modals/focus-detail/focus-detail';
-import { BreatheDetailPage } from '../modals/breathe-detail/breathe-detail';
-import { HelpPage } from '../modals/help/help';
-import { HistoryPage } from '../modals/history/history';
-import { StatsPage } from '../modals/stats/stats';
+import { RegisterPageModule } from '../modals/register/register.module';
+import { ForgotPasswordPageModule } from '../modals/forgot-password/forgot-password.module';
+import { PerspectiveDetailPageModule } from '../modals/perspective-detail/perspective-detail.module';
+import { FocusDetailPageModule } from '../modals/focus-detail/focus-detail.module';
+import { BreatheDetailPageModule } from '../modals/breathe-detail/breathe-detail.module';
+import { HelpPageModule } from '../modals/help/help.module';
+import { HistoryPageModule } from '../modals/history/history.module';
+import { StatsPageModule } from '../modals/stats/stats.module';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -31,19 +31,7 @@ import { CallNumber } from '@ionic-native/call-number';
 @NgModule({
   declarations: [
     MyApp,
-    BreathePage,
-    FocusPage,
-    PerspectivePage,
-    LoginPage,
-    RegisterPage,
-    TabsPage, 
-    PerspectiveDetailPage,
-    HistoryPage, 
-    FocusDetailPage,
-    BreatheDetailPage,
-    HelpPage,
-    ForgotPasswordPage,
-    StatsPage
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -52,24 +40,24 @@ import { CallNumber } from '@ionic-native/call-number';
     }),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    BreathePageModule,
+    FocusPageModule,
+    PerspectivePageModule,
+    LoginPageModule,
+    BreatheDetailPageModule,
+    PerspectiveDetailPageModule,
+    HistoryPageModule, 
+    FocusDetailPageModule,
+    HelpPageModule,
+    ForgotPasswordPageModule,
+    RegisterPageModule,
+    StatsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    BreathePage,
-    FocusPage,
-    PerspectivePage,
-    LoginPage,
-    RegisterPage,
-    TabsPage,
-    PerspectiveDetailPage,
-    HistoryPage,
-    FocusDetailPage,
-    BreatheDetailPage,
-    HelpPage,
-    ForgotPasswordPage,
-    StatsPage
+    TabsPage
   ],
   providers: [
     StatusBar,
