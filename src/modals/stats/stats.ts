@@ -89,8 +89,6 @@ export class StatsPage {
     });
 
    setTimeout(() => {
-       console.log( 'weeks', this.totalWeeks);
-       console.log( 'months', this.totalMonths);
        this.setGraph(this.labels.week[this.totalWeeks.total - this.totalWeeks.index].labels, this.values.week[this.totalWeeks.total - this.totalWeeks.index], this.labels.week[this.totalWeeks.total - this.totalWeeks.index].week);
        this.checkSelectorButtonDisable(this.totalWeeks.index, this.totalWeeks.total);      
    }, 1000);

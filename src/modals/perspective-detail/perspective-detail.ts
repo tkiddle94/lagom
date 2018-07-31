@@ -30,12 +30,19 @@ export class PerspectiveDetailPage {
   dateTitle: string;
   userInfo: any;
   readOnly: boolean = false;
+  week: string
+  weekNumber: number = 0;
+  dayNumber: number = 0;
+  yearSum: number = 0;
+  yearCount: number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
-    let now = moment().format('DD-MM-YYYY HH:mm:SS');
+    if (this.navParams.get('week')) {
+      this.week = this.navParams.get('week');
+    }
     this.dateTitle = moment().format('DD-MM');
     if (this.navParams.get('TimeStamp')) {
       this.dateTitle = this.navParams.get('TimeStamp');
@@ -50,6 +57,8 @@ export class PerspectiveDetailPage {
     db.valueChanges().subscribe((obj) => {
      this.userInfo = obj[0];
     });
+    this.getWeek();
+    this.getYear();
   }
 
   close() {
@@ -65,14 +74,44 @@ export class PerspectiveDetailPage {
     updateCBT[time] = {test: 'teetwe'};
 
     var updateValue = {};
+    this.yearCount = this.yearCount + 1;
+    this.yearSum = this.yearSum + this.feelingValue;
     updateValue[date] = {test: this.feelingValue};
     updateValue['/Month/' + moment().format('MM') + '/' + date] = {Day: moment().format('DD'), Value: this.feelingValue};
+    updateValue['/Week/' + `${this.weekNumber}/` + `${this.dayNumber}`] = {test: 'this is a test'};
+    updateValue['/Year/' + moment().format('MM')] = {Count: this.yearCount, Month: moment().format('MMM'), Sum: this.yearSum};
 
 
     let db = this.aFdatabase.list(this.afAuth.auth.currentUser.uid);
     db.update('CBT', updateCBT);
     db.update('CBTValues', updateValue);
     
+  }
+
+ getWeek(): any {
+    let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
+    dbW.valueChanges().subscribe((data) => {
+      this.weekNumber = data.length;
+      let latestWeek = data[data.length - 1];
+      this.dayNumber = data.length - 1;
+      if (latestWeek[1].Title !== this.week) {
+        this.weekNumber = this.weekNumber + 1;
+        this.dayNumber = 1;
+      }
+    });
+  } 
+
+  getYear() {
+    let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Year/01');
+    dbW.valueChanges().subscribe((data) => {
+      console.log(data);
+      let obj = data;
+    if (obj) {
+      this.yearCount = obj[0];
+      this.yearSum = obj[2];
+      console.log(this.yearCount, this.yearSum);
+    }
+    });
   }
 
   presentConfirm() {
