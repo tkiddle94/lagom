@@ -27,11 +27,18 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    let tabbar = document.querySelector(".tabbar");
+    if (tabbar) {
+        tabbar.setAttribute('style', 'display: none;');
+    }
   }
 
   async loginPressed(user: User) {
     this.afAuth.auth.signInWithEmailAndPassword(user.emailAddress, user.password).then(() =>{
+      let tabbar = document.querySelector(".tabbar");
+      if (tabbar) {
+          tabbar.setAttribute('style', 'display: flex;');
+      }
         this.navCtrl.setRoot(TabsPage);
     }, error => {
       let alert = this.alertCtrl.create({

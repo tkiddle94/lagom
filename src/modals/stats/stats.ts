@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, ModalController, Events } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { PerspectiveDetailPage } from '../../modals/perspective-detail/perspective-detail';
 import { Chart } from 'chart.js';
 /**
  * Generated class for the StatsPage page.
@@ -29,13 +30,35 @@ export class StatsPage {
   isForward:boolean = false;
   totalWeeks: any = {total: 0, index: 1};
   totalMonths: any = {total: 0, index: 1};
+  week: string;
+  userName: string;
+  dayCode: number;
+  day: string;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
+    private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private alertCtrl: AlertController,
+    public modalCtrl: ModalController, public events: Events,) {
   this.time = 'week';
     }
 
   ionViewDidLoad() {
+    if (this.navParams.get('week')) {
+        this.week = this.navParams.get('week');
+    }
+    if (this.navParams.get('day')) {
+    this.day = this.navParams.get('day');
+    }
+    if (this.navParams.get('dayCode')) {
+    this.dayCode = this.navParams.get('dayCode');
+    }
+    if (this.navParams.get('userName')){
+    this.userName = this.navParams.get('userName');
+    }
+    this.events.subscribe('close', () => {
+        this.close();
+    });
+
     let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
     dbW.valueChanges().subscribe((data) => {
       data.forEach((object) => {
@@ -49,8 +72,11 @@ export class StatsPage {
             labels.push(element.Day);
             week = element.Title;
        });
-       this.labels.week.push({week: week, labels: labels});
-       this.values.week.push(values);
+       if (labels[0] === undefined) {
+           labels = ['No entries for this week'];
+       }
+        this.labels.week.push({week: week, labels: labels});
+        this.values.week.push(values);
       });
     });
 
@@ -89,14 +115,36 @@ export class StatsPage {
     });
 
    setTimeout(() => {
-       this.setGraph(this.labels.week[this.totalWeeks.total - this.totalWeeks.index].labels, this.values.week[this.totalWeeks.total - this.totalWeeks.index], this.labels.week[this.totalWeeks.total - this.totalWeeks.index].week);
-       this.checkSelectorButtonDisable(this.totalWeeks.index, this.totalWeeks.total);      
+       if (this.values.week[this.totalWeeks.total - this.totalWeeks.index]) {
+           this.setGraph(this.labels.week[this.totalWeeks.total - this.totalWeeks.index].labels, this.values.week[this.totalWeeks.total - this.totalWeeks.index], this.labels.week[this.totalWeeks.total - this.totalWeeks.index].week);
+           this.checkSelectorButtonDisable(this.totalWeeks.index, this.totalWeeks.total);      
+       } else {
+        let alert = this.alertCtrl.create({
+            title: 'Empty',
+            message: 'It looks like you have no entries, would you like to start one now?',
+            buttons: [
+              {
+                text: 'No',
+                role: 'cancel',
+                handler: () => {
+                  this.close();
+                }
+              },
+              {
+                text: 'Yes',
+                handler: () => {
+                  this.startPerspective();
+                }
+              }
+            ]
+          });
+          alert.present();
+       }
    }, 1000);
    
   }
 
   segmentChanged() {
-      console.log(this.labels);
       if (this.time === 'all') {
         this.setGraph(this.labels.year, this.values.year);
         this.checkSelectorButtonDisable(0, 0);      
@@ -111,9 +159,6 @@ export class StatsPage {
     }
   
     setGraph(labels: any, values: any, title: string = '') {
-        console.log('labels', labels);
-        console.log('values', values);
-        console.log('title', title);
         this.title = title;
             this.chart = new Chart(this.barCanvas.nativeElement, {
             type: 'bar',
@@ -162,9 +207,7 @@ export class StatsPage {
     if (this.time === 'month') {
         this.totalMonths.index = this.totalMonths.index + change;
     } else if (this.time === 'week') {
-        console.log('change', change);
         this.totalWeeks.index = this.totalWeeks.index + change;
-        console.log('index', this.totalWeeks.index);
     }
     this.segmentChanged();
   }
@@ -173,6 +216,11 @@ export class StatsPage {
   checkSelectorButtonDisable(index: number, total: number) {
       this.isForward = index > 1;
       this.isBackward = index !== total;
+  }
+
+  startPerspective() {
+    let modal = this.modalCtrl.create(PerspectiveDetailPage, { closeAllModals: true, week: this.week, userName: this.userName, day: this.day, dayCode: this.dayCode});
+    modal.present();
   }
 
 }

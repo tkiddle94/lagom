@@ -9,7 +9,7 @@
   <ion-navbar color="light">
     <div class="header">
       <div class="img-container">
-        <img src="../../assets/imgs/lagom_simple.png" height="28px" width="30px"/>        
+        <img src="assets/imgs/lagom_simple.png" height="28px" width="30px" (click)='onProfileClick()'/>        
       </div>
       <div class="title">
         Perspective
@@ -17,13 +17,10 @@
     </div>
     <ion-buttons end>
         <button ion-button icon-only (click)='onHelp()'>
-            <ion-icon name="help-buoy"></ion-icon>
+            <ion-icon name="la-icon-la-help"></ion-icon>
         </button>
-        <button ion-button icon-only>
+        <button ion-button icon-only (click)='onInformation()'>
             <ion-icon name="information"></ion-icon>
-        </button>
-        <button ion-button icon-only>
-            <ion-icon name="add"></ion-icon>
         </button>
     </ion-buttons>
 </ion-navbar>

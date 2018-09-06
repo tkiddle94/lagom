@@ -9,7 +9,7 @@
   <ion-navbar color="light" class="title">
       <div class="header">
           <div class="img-container">
-            <img src="../../assets/imgs/lagom_simple.png" height="28px" width="30px" (click)='onProfileClick()'/>        
+            <img src="assets/imgs/lagom_simple.png" height="28px" width="30px" (click)='onProfileClick()'/>        
           </div>
           <div class="title">
                 Breathe
@@ -18,14 +18,11 @@
           
     </div>
     <ion-buttons end>
-        <button ion-button icon-only (click)='onHelp()'>
-            <ion-icon name="help-buoy"></ion-icon>
+        <button ion-button icon-only small (click)='onHelp()'>
+            <ion-icon name="la-icon-la-help"></ion-icon>
         </button>
         <button ion-button icon-only (click)='onInformation()'>
             <ion-icon name="information"></ion-icon>
-        </button>
-        <button ion-button icon-only (click)='onAdd()'>
-            <ion-icon name="add"></ion-icon>
         </button>
     </ion-buttons>
 </ion-navbar>
@@ -35,8 +32,8 @@
 
 <ion-content padding>
     <div>
-        <video autoplay muted loop class="bg-vid">
-          <source src="../../assets/video/IE_Lagom_RevB.m4v" type="video/mp4">
+        <video autoplay muted loop class="bg-vid" playsinline webkit-playsinline>
+          <source src="assets/video/IE_Lagom_RevB.m4v" type="video/mp4">
           
         </video>
       </div>
@@ -73,7 +70,7 @@
         </ion-slide>
       </ion-slides>
     </div>
-        <!-- <ion-img class="info" width="20" height="20" src="../../assets/imgs/info.png"></ion-img> -->
+        <!-- <ion-img class="info" width="20" height="20" src="assets/imgs/info.png"></ion-img> -->
    
 
     <div class="breathe" *ngIf="showFab">

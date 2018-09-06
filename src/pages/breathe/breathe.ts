@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
 import { BreatheDetailPage } from '../../modals/breathe-detail/breathe-detail';
 import { HelpPage } from '../../modals/help/help';
+import { WalkthroughPage } from '../../modals/walkthrough/walkthrough';
 import { LoginPage } from '../login/login';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -31,6 +32,10 @@ export class BreathePage {
     const timer = TimerObservable.create(6000, 6000).subscribe(t => { this.breaths = t; });
   }
 
+  ionViewDidChange() {
+    this.breaths = 0;
+  }
+
   dismissPressed() {
     this.showTutorial = false;
     this.showFab = true;
@@ -53,6 +58,13 @@ export class BreathePage {
   onProfileClick() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
+        {
+          text: 'Walkthrough',
+          handler: () => {
+            let modal = this.modalCtrl.create(WalkthroughPage);
+            modal.present();
+          }
+        },
         {
           text: 'Log Out',
           role: 'destructive',

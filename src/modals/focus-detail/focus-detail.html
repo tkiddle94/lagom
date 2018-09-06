@@ -4,31 +4,22 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar color="light">
-    <ion-title>XXXX Module</ion-title>
-  </ion-navbar>
-
-</ion-header>
+<ion-header class="shadow" no-border [class.statusbar-padding]="isCordova">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <button ion-button color="dark"  (click)='close()' large icon-only clear>
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Breathing</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
 
 <ion-content padding>
   <ion-list no-lines>
-    <button ion-item>
-      Meditation 1
-    </button>
-    <button ion-item>
-      Meditation 2
-    </button>
-    <button ion-item>
-      Meditation 3
-    </button>
-    <button ion-item>
-      Meditation 4
-    </button>
-    <button ion-item>
-      Meditation 5
+    <button ion-item (click)="onPlay()">
+      Introduction
     </button>
   </ion-list>
 </ion-content>

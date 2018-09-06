@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../assets/fonts/icomoon.eot?xgrt7b');
+  src:  url('../assets/fonts/icomoon.eot?xgrt7b#iefix') format('embedded-opentype'),
+    url('../assets/fonts/icomoon.ttf?xgrt7b') format('truetype'),
+    url('../assets/fonts/icomoon.woff?xgrt7b') format('woff'),
+    url('../assets/fonts/icomoon.svg?xgrt7b#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@mixin makeIcon($arg, $val, $size) {
+  .la-#{$arg}:before ,
+  .ion-ios-la-#{$arg}:before ,
+  .ion-ios-la-#{$arg}-outline:before ,
+  .ion-md-la-#{$arg}:before ,
+  .ion-md-la-#{$arg}-outline:before  {
+    content: $val;
+    font-size: $size;
+  }
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@include makeIcon(icon-la-perspective, '\e900', 40px);
+@include makeIcon(icon-la-breathe, '\e901', 40px);
+@include makeIcon(icon-la-focus, '\e902', 40px);
+@include makeIcon(icon-la-perspective-large, '\e900', 150px);
+@include makeIcon(icon-la-breathe-large, '\e901', 150px);
+@include makeIcon(icon-la-focus-large, '\e902', 150px);
+@include makeIcon(icon-la-help, '\e903', 26px);

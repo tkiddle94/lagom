@@ -21,11 +21,14 @@
         <div align="center">
           At Lagom we believe our app can be a powerful tool to help improve mental health, but there may be times when more support is needed. 
           If you need to talk to someone urgently please call the Samaritans:
-          <button ion-button round full (click)='callSamaritans()'>Call</button>     
+          <div class="button">
+            <button ion-button round full (click)='callSamaritans()'>Call</button>
+          </div>
+          For more specialised support see the links below...  
         </div>
           <div class="row-container">
             <ion-card (click)="openWithSystemBrowser('https://www.mind.org.uk/information-support/helplines/')">
-              <img src="../../assets/imgs/logo_mind_blue.png"/>
+              <img src="assets/imgs/logo_mind_blue.png"/>
               <ion-card-content>
                 <p>
                   For anyone experiencing a mental health problem
@@ -33,7 +36,7 @@
               </ion-card-content>
             </ion-card>
             <ion-card (click)="openWithSystemBrowser('http://www.themix.org.uk/get-support')">
-              <img src="../../assets/imgs/logo_themix.png"/>
+              <img src="assets/imgs/logo_themix.png"/>
               <ion-card-content>
                 <p>
                   For people under 25
@@ -41,7 +44,7 @@
               </ion-card-content>
             </ion-card>
             <ion-card (click)="openWithSystemBrowser('https://youngminds.org.uk/find-help/')">
-                <img src="../../assets/imgs/logo_young.png"/>
+                <img src="assets/imgs/logo_young.png"/>
                 <ion-card-content>
                   <p>
                     For parents
@@ -49,15 +52,23 @@
                 </ion-card-content>
               </ion-card>
               <ion-card (click)="openWithSystemBrowser('https://www.contactarmedforces.co.uk/')">
-                  <img src="../../assets/imgs/logo_contact.png"/>
+                  <img src="assets/imgs/logo_contact.png"/>
                   <ion-card-content>
                     <p>
                       For the armed forces community
                     </p>
                   </ion-card-content>
                 </ion-card>
+                <ion-card (click)="openWithSystemBrowser('https://www.womenatwish.org.uk/')">
+                  <img src="assets/imgs/wish-logo.png"/>
+                  <ion-card-content>
+                    <p>
+                      For women
+                    </p>
+                  </ion-card-content>
+                </ion-card>
                 <ion-card (click)="openWithSystemBrowser('https://www.thecalmzone.net/help/get-help/')">
-                    <img src="../../assets/imgs/logo-blue-fixed.png"/>
+                    <img src="assets/imgs/logo-blue-fixed.png"/>
                     <ion-card-content>
                       <p>
                         For men

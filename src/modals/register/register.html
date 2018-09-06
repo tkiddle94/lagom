@@ -22,23 +22,30 @@
             Please enter your details below to register.
           </div>
       <ion-item>
-        <ion-label stacked>EMAIL ADDRESS</ion-label>
+        <ion-label>FIRST NAME</ion-label>
+        <ion-input type="text" [(ngModel)]="user.userName" (ionChange)="onChange()"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>EMAIL ADDRESS</ion-label>
         <ion-input type="text" [(ngModel)]="user.emailAddress" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>PASSWORD</ion-label>
+        <ion-label>PASSWORD</ion-label>
         <ion-input type="password" [(ngModel)]="user.password" (ionChange)="onChange()"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>REPEAT PASSWORD</ion-label>
+        <ion-label>REPEAT PASSWORD</ion-label>
         <ion-input type="password" [(ngModel)]="user.passwordRepeat" (ionChange)="onChange()"></ion-input>
       </ion-item>
-      <div class="register-button">
-        <button ion-button round full (click)='registerPressed(user)' [disabled]="!isEnabled">Register</button>      
-      </div>
+      
     </div>
     <div class="footer">
       
     </div>
 </ion-content>
+<ion-footer>
+    <div class="register-button">
+        <button ion-button round full (click)='registerPressed(user)' [disabled]="!isEnabled">Register</button>      
+      </div>
+</ion-footer>
 </div>

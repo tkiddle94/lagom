@@ -1,0 +1,23 @@
+page-walkthrough {
+    .slide-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        .title {
+            padding-bottom: 3rem;
+            font-weight: bold;
+        }
+        .icon-container {
+            color: #02b5ef;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 16px;
+            padding-bottom: 1rem;
+        }
+        .button-container {
+            padding-top: 10rem;
+        }
+    }
+}

@@ -18,10 +18,10 @@
   </ion-header>
   <ion-content padding no-bounce class="content-container">
     <div class="wrapper">
-        <ion-slides>
+        <ion-slides pager=true>
             <ion-slide>
                     <div class="slide-container">
-                        <div class="text">{{questions[0]}}</div>
+                        <div class="text">{{questions[questionSelector][0]}}</div>
                         <div *ngIf="readOnly; else other">
                             <ion-range min="0" max="10" [(ngModel)]="feelingValue" color="primary" disabled>
                             <ion-badge range-left>0</ion-badge>
@@ -29,7 +29,7 @@
                             </ion-range>
                         </div>
                         <ng-template #other>
-                            <ion-range min="0" max="10" [(ngModel)]="feelingValue" color="primary">
+                            <ion-range min="0" max="10" [(ngModel)]="feelingValue" (ngModelChange)="onFeelingValueChange()" color="primary">
                             <ion-badge range-left>0</ion-badge>
                             <ion-badge range-right>10</ion-badge>
                             </ion-range>                            
@@ -41,29 +41,35 @@
                 </ion-slide>
                 <ion-slide>
                     <div class="slide-container">
-                        <div class="text">{{questions[1]}}</div>
-                        <textarea [class]="readonly" [placeholder]="answers[0]" [(ngModel)]="answers[0]" [readonly]="readOnly"></textarea>
-                        <div class="text">{{questions[2]}}</div>
-                        <textarea [placeholder]="answers[1]" [(ngModel)]="answers[1]" [readonly]="readOnly"></textarea>
+                        <div class="text">{{questions[questionSelector][1]}}</div>
+                        <textarea [class]="readOnly" [placeholder]="answers[0]" [(ngModel)]="answers[0]" [readonly]="readOnly" (ngModelChange)="onTextChange()"></textarea>
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide-container">
+                        <div class="text">{{questions[questionSelector][2]}}</div>
+                        <textarea [class]="readOnly" [placeholder]="answers[1]" [(ngModel)]="answers[1]" [readonly]="readOnly" (ngModelChange)="onTextChange()"></textarea>
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="slide-container">
+                        <div class="text">{{questions[questionSelector][3]}}</div>
+                        <textarea [class]="readOnly" [placeholder]="answers[2]" [(ngModel)]="answers[2]" [readonly]="readOnly" (ngModelChange)="onTextChange()"></textarea>
                     </div>
                 </ion-slide>
                 <ion-slide> 
                     <div class="slide-container">
-                        <div class="text">{{questions[3]}}</div>
-                        <textarea [placeholder]="answers[2]" [(ngModel)]="answers[2]" [readonly]="readOnly"></textarea>
-                        <div class="text">{{questions[4]}}</div> 
-                        <textarea [placeholder]="answers[3]" [(ngModel)]="answers[3]" [readonly]="readOnly"></textarea>
+                        <div class="text">{{questions[questionSelector][4]}}</div> 
+                        <textarea [class]="readOnly" [placeholder]="answers[3]" [(ngModel)]="answers[3]" [readonly]="readOnly" (ngModelChange)="onTextChange()"></textarea>
                     </div>
                 </ion-slide>
         </ion-slides>
     </div>
   </ion-content>
   <ion-footer>
-      <ion-toolbar>
-          <ion-buttons slot="primary">
-              <button ion-button color="primary"(click)="presentConfirm()">
-                  Save
-              </button>
-          </ion-buttons>
-      </ion-toolbar>
+      <div class="footer">
+          <button class="footer" ion-button round full color="primary" (click)="presentConfirm()" [disabled]="!isEnabled">
+              Save
+          </button>
+      </div>
   </ion-footer>

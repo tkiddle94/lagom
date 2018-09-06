@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { FocusPlayPage } from '../focus-play/focus-play';
 /**
  * Generated class for the FocusDetailPage page.
  *
@@ -15,11 +16,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FocusDetailPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private nativeAudio: NativeAudio, private viewCtrl: ViewController, private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FocusDetailPage');
+    this.nativeAudio.preloadComplex('breathing_1', 'assets/meditations/breathing_meditation_1.mp3', 1, 1, 0);
+  }
+
+  onPlay() {
+    let modal = this.modalCtrl.create(FocusPlayPage);
+    modal.present();
+  }
+
+  close() {
+    this.viewCtrl.dismiss();
   }
 
 }

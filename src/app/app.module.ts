@@ -17,6 +17,8 @@ import { BreatheDetailPageModule } from '../modals/breathe-detail/breathe-detail
 import { HelpPageModule } from '../modals/help/help.module';
 import { HistoryPageModule } from '../modals/history/history.module';
 import { StatsPageModule } from '../modals/stats/stats.module';
+import { WalkthroughPageModule } from '../modals/walkthrough/walkthrough.module';
+import { FocusPlayPageModule } from '../modals/focus-play/focus-play.module';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -27,6 +29,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CallNumber } from '@ionic-native/call-number';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { MusicControls } from '@ionic-native/music-controls';
+import { Media } from '@ionic-native/media';
+
+
+
 
 @NgModule({
   declarations: [
@@ -52,7 +60,9 @@ import { CallNumber } from '@ionic-native/call-number';
     HelpPageModule,
     ForgotPasswordPageModule,
     RegisterPageModule,
-    StatsPageModule
+    StatsPageModule,
+    WalkthroughPageModule,
+    FocusPlayPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -64,6 +74,9 @@ import { CallNumber } from '@ionic-native/call-number';
     SplashScreen,
     InAppBrowser,
     CallNumber,
+    NativeAudio,
+    MusicControls,
+    Media,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

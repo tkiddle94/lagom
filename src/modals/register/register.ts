@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, ModalController } from 'ionic-angular';
 import { User } from '../../models/user';
-import { TabsPage } from '../../pages/tabs/tabs';
+import { WalkthroughPage } from '../walkthrough/walkthrough';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the RegisterPage page.
@@ -22,7 +23,7 @@ export class RegisterPage {
   isEnabled: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth, public viewCtrl: ViewController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController, private aFdatabase: AngularFireDatabase, private modalCtrl: ModalController) {
   }
 
   async registerPressed(user: User) {
@@ -33,7 +34,13 @@ export class RegisterPage {
         buttons: [{
           text: 'Okay',
           handler: () => {
-            this.navCtrl.setRoot(TabsPage);
+            let db = this.aFdatabase.object(this.afAuth.auth.currentUser.uid);
+            let userInfo = {};
+            userInfo['userInfo'] = {username: this.user.userName, email: this.user.emailAddress};
+            db.set(userInfo).then(() => {
+              let modal = this.modalCtrl.create(WalkthroughPage, {register: true});
+              modal.present();
+            });
           }
         }]
       });
