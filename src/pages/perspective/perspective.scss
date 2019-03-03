@@ -22,9 +22,43 @@ page-perspective {
     .outer-container {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: flex-start;
         align-items: center;
         height: 100%;
+        .title,
+        .calendar-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            .title-text,
+            .calendar-item {
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                border-radius: 50%;
+                padding: 5px;
+                .uncomplete,
+                .complete {
+                    width: 40px;
+                    height: 30px;
+                    justify-content: center;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 50%;
+                    border: 1px solid#02b5ef;
+                }
+                .uncomplete { 
+                    color: #02b5ef;
+                }
+                .complete {
+                    color: white;
+                    background-color: #02b5ef;
+                }
+            }
+        }
         .center-container {
             display: flex;
             justify-content: center;
@@ -34,27 +68,6 @@ page-perspective {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            .uncomplete {
-                justify-content: center;
-                display: flex;
-                align-items: center;
-                width: 40px;
-                height: 40px;
-                color: #02b5ef;
-                border: 1px #02b5ef;
-                border-radius: 20px;
-            }
-            .complete {
-                justify-content: center;
-                display: flex;
-                align-items: center;
-                width: 40px;
-                height: 40px;
-                color: white;
-                border: 1px #02b5ef;
-                border-radius: 20px;
-                background-color: #02b5ef;
-            }
         }
         .bottom-container {
             width: 100%;

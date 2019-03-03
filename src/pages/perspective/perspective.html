@@ -30,52 +30,47 @@
 
 <ion-content padding>
   <div class="outer-container">
-    
-    <div class="container">
-      <div class={{this.days[0].currentDay}}>
-        <div class={{this.days[0].completed}} (click)='dayClicked(0)'>
-          <div class="text">
-            M
+
+  <div class="title">
+      <div class="title-text">
+          M
+      </div>
+      <div class="title-text">
+          T
+      </div>
+        <div class="title-text">
+            W
           </div>
-        </div>
-      </div>
-      <div class={{this.days[1].completed}} (click)='dayClicked(1)'>
-        <div class="text">
+        <div class="title-text">
             T
-        </div>
-      </div>
-      <div class={{this.days[2].completed}} (click)='dayClicked(2)'>
-          <div class="text">
-              W
-            </div>
-      </div>
-      <div class={{this.days[3].completed}} (click)='dayClicked(3)'>
-          <div class="text">
-              T
-            </div>
-      </div>
-      <div class={{this.days[4].completed}} (click)='dayClicked(4)'>
-          <div class="text">
-              F
-            </div>
-      </div>
-      <div class={{this.days[5].completed}} (click)='dayClicked(5)'>
-          <div class="text">
-              S
-            </div>
-      </div>
-      <div class={{this.days[6].completed}} (click)='dayClicked(6)'>
-          <div class="text">
-              S
-            </div>
+          </div>
+        <div class="title-text">
+            F
+          </div>
+        <div class="title-text">
+            S
+          </div>
+        <div class="title-text">
+            S
+          </div>
+  </div>
+
+  <div class="calendar-row" *ngFor="let row of calendarRows;">
+    <div class="calendar-item" *ngFor="let item of row;">
+      <div class={{item.completed}} (click)='calendarDateClicked(item.day)'>
+        {{item.day}}
       </div>
     </div>
-    <div class="center-container">
+  </div>
+
+       
+    
+    <!-- <div class="center-container">
       <button ion-button round full (click)='onBegin()'>Begin</button>
   </div>
     <div class="bottom-container">
       <button ion-button round (click)='onHistory()'>History</button>
       <button ion-button round (click)='onStats()'>Stats</button>
-      </div>
-  </div>
+      </div> -->
+  </div> 
 </ion-content>

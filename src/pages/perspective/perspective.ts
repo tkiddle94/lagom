@@ -37,6 +37,8 @@ export class PerspectivePage {
   userName: string;
   dayCode: number;
   day: string;
+  calendarRows: Array<Array<{day: number, complete: string}>>;
+  monthComplete: Array<boolean>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, 
     private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController) {
@@ -62,6 +64,45 @@ export class PerspectivePage {
     this.days[dd].currentDay = 'current';
     this.day = this.days[dd].dayCode;
     this.week = startOfWeek + ' - ' + endOfWeek;
+
+    let startOfMonth = moment().startOf('month');
+    let startDayOfWeek = startOfMonth.day();
+    let month = today.getMonth() + 1;
+    let endOfMonth = parseInt(moment().endOf('month').format('DD'));
+    let totalMonthDays = moment().daysInMonth();
+    let numberOfRows = Math.ceil((totalMonthDays - startDayOfWeek) / 7) + 1;
+
+    this.monthComplete = new Array(totalMonthDays);
+    this.monthComplete.fill(false);
+    let dbM = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Month/' + `${month}`);
+    dbM.valueChanges().subscribe((data) => {
+      console.log('data', data);
+      data.forEach((object) => {
+       let obj: any = object;
+       console.log('obj', obj);
+        this.monthComplete[obj.Day] = true;
+      });
+    });
+
+    setTimeout(() => {
+      let rows = new Array(numberOfRows);
+      let weekEmpty = new Array(7);
+      rows.fill(weekEmpty);
+      rows = rows.map((val, index) => {
+        let week = [{day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}];
+          week = week.map((_val, i) => {
+            let date = ((7 * index) + 1) - (7 - startDayOfWeek) + i;
+            date = date <= 0 ? undefined : date;
+            date = date > endOfMonth ? undefined : date;
+            let completed = this.monthComplete[date - 1] ? 'complete' : this.monthComplete[date - 1] === false ? 'uncomplete' : '';
+            return {day: date, completed: completed};
+          });
+        return week;
+      });
+      this.calendarRows = rows;
+      console.log('rows', endOfMonth);
+      console.log('month comp', this.monthComplete, month);
+    }, 2000);
 
 
     let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
@@ -103,6 +144,16 @@ export class PerspectivePage {
   onHelp() {
     let modal = this.modalCtrl.create(HelpPage);
     modal.present();
+  }
+
+  calendarDateClicked(date: any) {
+    let dateIndex = date - 1;
+    let isComplete = this.monthComplete[dateIndex];
+    if (isComplete) {
+      this.onHistory();
+    } else {
+      this.onBegin();
+    }
   }
 
   onInformation() {
