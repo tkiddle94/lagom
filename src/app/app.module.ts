@@ -20,9 +20,12 @@ import { StatsPageModule } from '../modals/stats/stats.module';
 import { WalkthroughPageModule } from '../modals/walkthrough/walkthrough.module';
 import { FocusPlayPageModule } from '../modals/focus-play/focus-play.module';
 
+import { HelperService } from '../helpers/data.helpers';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -77,6 +80,8 @@ import { Media } from '@ionic-native/media';
     NativeAudio,
     MusicControls,
     Media,
+    HelperService,
+    AngularFirestore,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -5,7 +5,6 @@ import { ForgotPasswordPage } from '../../modals/forgot-password/forgot-password
 import { TabsPage } from '../tabs/tabs';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
-
 /**
  * Generated class for the LoginPage page.
  *
@@ -29,17 +28,17 @@ export class LoginPage {
   ionViewDidLoad() {
     let tabbar = document.querySelector(".tabbar");
     if (tabbar) {
-        tabbar.setAttribute('style', 'display: none;');
+      tabbar.setAttribute('style', 'display: none;');
     }
   }
 
   async loginPressed(user: User) {
-    this.afAuth.auth.signInWithEmailAndPassword(user.emailAddress, user.password).then(() =>{
+    this.afAuth.auth.signInWithEmailAndPassword(user.emailAddress, user.password).then(() => {
       let tabbar = document.querySelector(".tabbar");
       if (tabbar) {
-          tabbar.setAttribute('style', 'display: flex;');
+        tabbar.setAttribute('style', 'display: flex;');
       }
-        this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(TabsPage);
     }, error => {
       let alert = this.alertCtrl.create({
         title: 'Sorry',

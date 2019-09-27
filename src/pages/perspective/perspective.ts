@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, AlertController, Slides } from 'ionic-angular';
 import { PerspectiveDetailPage } from '../../modals/perspective-detail/perspective-detail';
 import { WalkthroughPage } from '../../modals/walkthrough/walkthrough';
 import { LoginPage } from '../login/login';
 import { HistoryPage } from '../../modals/history/history';
 import { HelpPage } from '../../modals/help/help'
 import { StatsPage } from '../../modals/stats/stats'
+import { HelperService } from '../../helpers/data.helpers'
 import * as moment from 'moment';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { ICbtData, ICbtStreak } from '../../interfaces/interfaces';
 /**
  * Generated class for the PerspectivePage page.
  *
@@ -24,28 +24,47 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class PerspectivePage {
 
-  days: Array<{day: string, completed: string, currentDay: string, dayCode: string}> = [
-    {day: 'M', completed: 'uncomplete', currentDay: '', dayCode: 'Mon'},
-    {day: 'T', completed: 'uncomplete', currentDay: '', dayCode: 'Tue'},
-    {day: 'W', completed: 'uncomplete', currentDay: '', dayCode: 'Wed'},
-    {day: 'T', completed: 'uncomplete', currentDay: '', dayCode: 'Thu'},
-    {day: 'F', completed: 'uncomplete', currentDay: '', dayCode: 'Fri'},
-    {day: 'S', completed: 'uncomplete', currentDay: '', dayCode: 'Sat'},
-    {day: 'S', completed: 'uncomplete', currentDay: '', dayCode: 'Sun'}
-  ];
-  week: string;
-  userName: string;
-  dayCode: number;
-  day: string;
-  calendarRows: Array<Array<{day: number, complete: string}>>;
-  monthComplete: Array<boolean>;
+  @ViewChild('mySlider') slider: Slides;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, 
-    private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController) {
+  private monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  private selectedMonth: number;
+  private selectedYear: number;
+  private isInit: boolean = false;
+  private userID: string;
+  private completedDays: number[];
+
+  public week: string;
+  public userName: string;
+  public dayCode: number;
+  public calendarRows: Array<Array<{ day: number, complete: string }>>;
+  public monthComplete: Array<boolean>;
+  public monthTitle: string;
+  public monthCount: number;
+  public monthAverage: number;
+  public streak: number;
+  public slideOpts = { direction: 'vertical' }
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
+   private afAuth: AngularFireAuth, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private helper: HelperService) {
+  }
+
+  ionViewDidEnter() {
+    // this.slider.getSlider().update();
+    // this.slider.loop = true;
+    this.slider.slideTo(11);
+    this.slider.update();
   }
 
   ionViewDidLoad() {
+   
     let today = new Date();
+    this.userID = this.afAuth.auth.currentUser.uid;
+    this.monthTitle = this.monthNames[today.getMonth()];
+    this.selectedMonth = today.getMonth() + 1;
+    this.selectedYear = today.getFullYear();
+
     let dd = today.getDay();
     dd = dd + -1;
     if (dd < 0) {
@@ -61,83 +80,105 @@ export class PerspectivePage {
       endOfWeek = moment().endOf('week').subtract(1, 'days').format('DD');
     }
     this.dayCode = dd;
-    this.days[dd].currentDay = 'current';
-    this.day = this.days[dd].dayCode;
     this.week = startOfWeek + ' - ' + endOfWeek;
 
-    let startOfMonth = moment().startOf('month');
-    let startDayOfWeek = startOfMonth.day();
-    let month = today.getMonth() + 1;
-    let endOfMonth = parseInt(moment().endOf('month').format('DD'));
     let totalMonthDays = moment().daysInMonth();
-    let numberOfRows = Math.ceil((totalMonthDays - startDayOfWeek) / 7) + 1;
-
     this.monthComplete = new Array(totalMonthDays);
     this.monthComplete.fill(false);
-    let dbM = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Month/' + `${month}`);
-    dbM.valueChanges().subscribe((data) => {
-      console.log('data', data);
-      data.forEach((object) => {
-       let obj: any = object;
-       console.log('obj', obj);
-        this.monthComplete[obj.Day] = true;
-      });
+
+
+    this.updateSlide();
+
+    this.setUsername();
+  }
+
+  updateSlide() {
+    this.helper.getUserStreak(this.userID).then(ret => {
+      console.log('return', ret);
+      if (ret) {
+        let streakData: ICbtStreak = ret;
+        this.streak = streakData.count;
+      }
     });
 
-    setTimeout(() => {
-      let rows = new Array(numberOfRows);
-      let weekEmpty = new Array(7);
-      rows.fill(weekEmpty);
-      rows = rows.map((val, index) => {
-        let week = [{day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}, {day: undefined, completed: 'uncomplete'}];
-          week = week.map((_val, i) => {
-            let date = ((7 * index) + 1) - (7 - startDayOfWeek) + i;
-            date = date <= 0 ? undefined : date;
-            date = date > endOfMonth ? undefined : date;
-            let completed = this.monthComplete[date - 1] ? 'complete' : this.monthComplete[date - 1] === false ? 'uncomplete' : '';
-            return {day: date, completed: completed};
+    this.helper.getUserMonthData(this.userID, this.formatSelectedMonth(this.selectedMonth, this.selectedYear, true)).then(ret => {
+      console.log('moth', ret);
+      if (ret) {
+        let monthData: ICbtData = ret;
+        this.monthAverage = monthData.average;
+        this.monthCount = monthData.count;
+        this.completedDays = monthData.days;
+        if (this.completedDays && this.completedDays.length > 0) {
+          this.completedDays.forEach(completedDay => {
+            this.monthComplete[completedDay] = true;
           });
-        return week;
-      });
-      this.calendarRows = rows;
-      console.log('rows', endOfMonth);
-      console.log('month comp', this.monthComplete, month);
-    }, 2000);
-
-
-    let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
-    dbW.valueChanges().subscribe((data) => {
-      data.forEach((object, index) => {
-       let obj: any = object;
-       if (obj.length > 0) {
-         obj.forEach(element => {
-            if (element.Title === this.week) {
-            this.days[element.dayCode].completed = 'complete';
-          }
-        });
-       }
-      });
+        }
+        console.log('completedays', this.monthComplete);
+      } else {
+        this.monthAverage = null;
+        this.monthCount = 0;
+        this.monthComplete.fill(false);
+      }
+      this.setCalendarRows(this.formatSelectedMonth(this.selectedMonth, this.selectedYear), this.selectedMonth);
     });
+  }
+  setCalendarRows(selectedDate: string, selectedMonth: number) {
+    let startOfMonth = moment(selectedDate).startOf('month').day() - 1;
+    startOfMonth = startOfMonth < 0 ? 6 : startOfMonth;
+    let totalMonthDays = moment(selectedDate).daysInMonth();
+    let numberOfRows = Math.ceil((totalMonthDays + startOfMonth) / 7);
 
-    let db = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/userInfo/');
-    db.valueChanges().subscribe((obj) => {
-      let userName = obj[1] as string;
-      this.userName = userName;
+    let rows = new Array(numberOfRows);
+    let weekEmpty = new Array(7);
+    rows.fill(weekEmpty);
+    rows = rows.map((val, index) => {
+      let week = [{ day: undefined, completed: 'uncomplete' }, { day: undefined, completed: 'uncomplete' }, { day: undefined, completed: 'uncomplete' }, { day: undefined, completed: 'uncomplete' }, { day: undefined, completed: 'uncomplete' }, { day: undefined, completed: 'uncomplete' }, { day: undefined, completed: 'uncomplete' }];
+      week = week.map((_val, i) => {
+        let date = ((7 * index) + 1) - (startOfMonth) + i;
+        date = date <= 0 ? undefined : date;
+        date = date > totalMonthDays ? undefined : date;
+        let completed = this.monthComplete[date - 1] ? 'complete' : this.monthComplete[date - 1] === false ? 'uncomplete' : '';
+        let today = new Date();
+        if (selectedMonth === (today.getMonth() + 1)) {
+          completed = date <= today.getDate() ? completed : (date ? 'locked' : '');
+        }
+        return { day: date, completed: completed };
+      });
+      return week;
+    });
+    this.calendarRows = rows;
+  }
+
+  formatSelectedMonth(month: number, year: number, shorten: boolean = false): string {
+    let formattedMonth: string = month > 9 ? `${month}` : `0${month}`;
+    if (shorten) {
+      let formattedYear: string = `${year}`;
+      formattedYear = formattedYear.slice(2);
+      return `${formattedMonth}-${formattedYear}`;
+    } else {
+      return `${year}-${formattedMonth}`;
+    }
+  }
+
+  setUsername() {
+    this.helper.getUserName(this.userID).then((userNameVal) => {
+      this.userName = userNameVal;
+      console.log('user', this.userName);
     });
   }
 
-  onBegin() {
-    let modal = this.modalCtrl.create(PerspectiveDetailPage, { week: this.week, userName: this.userName, day: this.day, dayCode: this.dayCode});
+  onBegin(date: number) {
+    let modal = this.modalCtrl.create(PerspectiveDetailPage, { week: this.week, userName: this.userName, dayCode: date });
     modal.present();
   }
 
   onHistory() {
-    let modal = this.modalCtrl.create(HistoryPage, { week: this.week, userName: this.userName, day: this.day, dayCode: this.dayCode});
+    let modal = this.modalCtrl.create(HistoryPage, { week: this.week, userName: this.userName, dayCode: this.dayCode });
     modal.present();
   }
 
   onStats() {
-    let modal = this.modalCtrl.create(StatsPage, { week: this.week, userName: this.userName, day: this.day, dayCode: this.dayCode});
+    let modal = this.modalCtrl.create(StatsPage, { week: this.week, userName: this.userName, dayCode: this.dayCode });
     modal.present();
   }
 
@@ -146,13 +187,11 @@ export class PerspectivePage {
     modal.present();
   }
 
-  calendarDateClicked(date: any) {
-    let dateIndex = date - 1;
-    let isComplete = this.monthComplete[dateIndex];
-    if (isComplete) {
+  calendarDateClicked(date: number, completed: string) {
+    if (completed === ' complete') {
       this.onHistory();
-    } else {
-      this.onBegin();
+    } else if (completed === 'uncomplete') {
+      this.onBegin(date);
     }
   }
 
@@ -175,37 +214,21 @@ export class PerspectivePage {
     modal.present();
   }
 
-  dayClicked(weekIndex: number) {
-    if (this.days[weekIndex].completed === 'complete'){
-      let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
-      dbW.valueChanges().subscribe((data) => {
-        data.forEach((object, index) => {
-        let obj: any = object;
-        if (index === (data.length - 1)) {
-          obj.forEach((element) => {
-            
-            if (element.dayCode === weekIndex) {
-              
-              let modal = this.modalCtrl.create(PerspectiveDetailPage, 
-                {TimeStamp: "time", 
-                Value: element.Value,
-                a1: element.a1,
-                a2: element.a2,
-                a3: element.a3,
-                a4: element.a4,
-                q1: element.q1,
-                q2: element.q2,
-                q3: element.q3,
-                q4: element.q4,
-                q5: element.q5
-              });
-              modal.present();
-            }
-          });
-        }
-      });
-    });
+  onSlideDidChange(event) {
+    if (event && this.isInit) {
+      let monthChange: number = event.swipeDirection === 'next' ? 1 : -1;
+      this.selectedMonth = this.selectedMonth + monthChange;
+      if (this.selectedMonth === 13) {
+        this.selectedMonth = 1;
+        this.selectedYear = this.selectedYear + 1;
+      } else if (this.selectedMonth === 0) {
+        this.selectedMonth = 12;
+        this.selectedYear = this.selectedYear - 1;
+      }
+      this.monthTitle = this.monthNames[this.selectedMonth - 1];
+      this.updateSlide();
     }
+    this.isInit = true;
   }
 
   onProfileClick() {
@@ -222,17 +245,17 @@ export class PerspectivePage {
           text: 'Log Out',
           role: 'destructive',
           handler: () => {
-            this.afAuth.auth.signOut().then(() =>{
+            this.afAuth.auth.signOut().then(() => {
               this.navCtrl.setRoot(LoginPage);
               // this.navCtrl.pop();              
-          }, error => {
-            let alert = this.alertCtrl.create({
-              title: 'Sorry',
-              subTitle: error.message,
-              buttons: ['Okay']
+            }, error => {
+              let alert = this.alertCtrl.create({
+                title: 'Sorry',
+                subTitle: error.message,
+                buttons: ['Okay']
+              });
+              alert.present();
             });
-            alert.present();
-          });
           }
         },
         {
@@ -241,7 +264,7 @@ export class PerspectivePage {
         }
       ]
     });
- 
+
     actionSheet.present();
   }
 
