@@ -27,50 +27,787 @@
   
 </ion-header>
 
-
-<ion-content padding>
-  <div class="outer-container">
-
-  <div class="title">
-      <div class="title-text">
-          M
-      </div>
-      <div class="title-text">
-          T
-      </div>
-        <div class="title-text">
-            W
+<ion-content>
+  <ion-slides #mySlider class="calendar-content" (ionSlideDidChange)="onSlideDidChange($event)">
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
           </div>
-        <div class="title-text">
-            T
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
           </div>
-        <div class="title-text">
-            F
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+              <div class="title-text">
+                M
+              </div>
+              <div class="title-text">
+                T
+              </div>
+              <div class="title-text">
+                W
+              </div>
+              <div class="title-text">
+                T
+              </div>
+              <div class="title-text">
+                F
+              </div>
+              <div class="title-text">
+                S
+              </div>
+              <div class="title-text">
+                S
+              </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
           </div>
-        <div class="title-text">
-            S
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
           </div>
-        <div class="title-text">
-            S
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
           </div>
-  </div>
-
-  <div class="calendar-row" *ngFor="let row of calendarRows;">
-    <div class="calendar-item" *ngFor="let item of row;">
-      <div class={{item.completed}} (click)='calendarDateClicked(item.day)'>
-        {{item.day}}
-      </div>
-    </div>
-  </div>
-
-       
-    
-    <!-- <div class="center-container">
-      <button ion-button round full (click)='onBegin()'>Begin</button>
-  </div>
-    <div class="bottom-container">
-      <button ion-button round (click)='onHistory()'>History</button>
-      <button ion-button round (click)='onStats()'>Stats</button>
-      </div> -->
-  </div> 
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="outer-container">
+          <div class="calendar-container">
+            <div class="month-name">
+              {{monthTitle}}
+            </div>
+            <div class="title">
+                <div class="title-text">
+                    M
+                </div>
+                <div class="title-text">
+                    T
+                </div>
+                <div class="title-text">
+                    W
+                  </div>
+                <div class="title-text">
+                    T
+                  </div>
+                <div class="title-text">
+                    F
+                  </div>
+                <div class="title-text">
+                    S
+                  </div>
+                <div class="title-text">
+                    S
+                </div>
+            </div>
+            <div class="calendar-row" *ngFor="let row of calendarRows;">
+              <div class="calendar-item" *ngFor="let item of row;">
+                <div class={{item.completed}} (click)='calendarDateClicked(item.day, item.completed)'>
+                  {{item.day}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="card">
+              <div class="left">
+                Entries
+              </div>
+              <div class="right">
+                {{monthCount}}
+              </div>
+            </div>
+             <div class="card">
+              <div class="left">
+                Month Average
+              </div>
+              <div class="right">
+                {{monthAverage}}
+              </div>
+            </div>
+            <div class="card">
+              <div class="left">
+                Streak
+              </div>
+              <div class="right">
+                {{streak}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+  </ion-slides>
 </ion-content>
