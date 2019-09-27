@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { ICbtEntry, ICbtData, ICbtStreak } from '../interfaces/interfaces';
 
 @Injectable()
 export class HelperService {
-    constructor(private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private aFirestoreDb: AngularFirestore) { }
+    constructor(private afAuth: AngularFireAuth, private aFirestoreDb: AngularFirestore) { }
+    public CryptoJS = require("crypto-js");
 
     public testHelper() {
         console.log('helper working?', this.afAuth.auth.currentUser);
@@ -22,7 +22,7 @@ export class HelperService {
 
     }
 
-    public async getUserName(uid: string): Promise<string> {
+    public async getUserName(uid: string): Promise<string | any> {
         let userName: string;
         const collection = this.aFirestoreDb.collection('users');
         return new Promise((resolve) => {
@@ -35,7 +35,7 @@ export class HelperService {
         });
     }
 
-    public async getUserTotal(uid: string): Promise<ICbtData> {
+    public async getUserTotal(uid: string): Promise<ICbtData | any> {
         let userTotal: ICbtData;
         const collection = this.aFirestoreDb.collection('total');
         return new Promise((resolve, reject) => {
@@ -50,14 +50,29 @@ export class HelperService {
         });
     }
 
-    public async getUserDayData(uid: string, date: string): Promise<number> {
+    public async addNewEntry(uid: string, entry: ICbtEntry, date: string): Promise<void> {
+        // Encrypt
+        var ciphertext = this.CryptoJS.AES.encrypt(JSON.stringify(entry), uid);
+
+        const dateEntry = { [date]: ciphertext.toString() }
+        const collection = this.aFirestoreDb.collection('cbtDay');
+        return new Promise((resolve) => {
+            collection.doc(uid).set(dateEntry, { merge: true }).then((ret) => {
+                return resolve();
+            });
+        });
+    }
+
+    public async getUserDayData(uid: string, date: string): Promise<ICbtEntry | any> {
         let value: number;
         const collection = this.aFirestoreDb.collection('cbtDay');
         return new Promise((resolve, reject) => {
             collection.doc(uid).valueChanges().subscribe((o) => {
                 if (o[date]) {
-                    value = o[date].value;
-                    return resolve(value);
+                    value = o[date];
+                    var bytes = this.CryptoJS.AES.decrypt(value.toString(), uid);
+                    var decryptedData = JSON.parse(bytes.toString(this.CryptoJS.enc.Utf8));
+                    return resolve(decryptedData);
                 } else {
                     return reject(null);
                 }
@@ -65,7 +80,7 @@ export class HelperService {
         });
     }
 
-    public async getUserMonthData(uid: string, date: string): Promise<ICbtData> {
+    public async getUserMonthData(uid: string, date: string): Promise<ICbtData | any> {
         let monthData: ICbtData;
         const collection = this.aFirestoreDb.collection('cbtMonth');
         return new Promise((resolve) => {
@@ -80,7 +95,7 @@ export class HelperService {
         });
     }
 
-    public async getUserYearData(uid: string, year: number): Promise<ICbtData> {
+    public async getUserYearData(uid: string, year: number): Promise<ICbtData | any> {
         let yearData: ICbtData;
         const collection = this.aFirestoreDb.collection('cbtYear');
         return new Promise((resolve, reject) => {
@@ -115,10 +130,6 @@ export class HelperService {
         await collection.doc(uid).set(streak).then(ret => {
             console.log('did it work', ret)
         })
-    }
-
-    public async addNewEntry(uid: string, entry: ICbtEntry) {
-        this.getUserTotal(uid).then()
     }
 
 }

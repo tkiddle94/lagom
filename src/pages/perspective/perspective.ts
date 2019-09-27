@@ -8,10 +8,8 @@ import { HelpPage } from '../../modals/help/help'
 import { StatsPage } from '../../modals/stats/stats'
 import { HelperService } from '../../helpers/data.helpers'
 import * as moment from 'moment';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ICbtEntry, ICbtData, ICbtStreak } from '../../interfaces/interfaces';
-
+import { ICbtData, ICbtStreak } from '../../interfaces/interfaces';
 /**
  * Generated class for the PerspectivePage page.
  *
@@ -49,7 +47,7 @@ export class PerspectivePage {
   public slideOpts = { direction: 'vertical' }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
-    private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private helper: HelperService) {
+   private afAuth: AngularFireAuth, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private helper: HelperService) {
   }
 
   ionViewDidEnter() {
@@ -60,6 +58,7 @@ export class PerspectivePage {
   }
 
   ionViewDidLoad() {
+   
     let today = new Date();
     this.userID = this.afAuth.auth.currentUser.uid;
     this.monthTitle = this.monthNames[today.getMonth()];

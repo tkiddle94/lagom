@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, Events } from 'ionic-angular';
 import { User } from '../../models/user';
-import { StatsPage } from '../stats/stats';
+// import { StatsPage } from '../stats/stats';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as moment from 'moment';
+import { ICbtEntry } from '../../interfaces/interfaces';
+import { HelperService } from '../../helpers/data.helpers'
 
 
 /**
@@ -21,29 +23,29 @@ import * as moment from 'moment';
 })
 export class PerspectiveDetailPage {
 
-  userInfo = {userName: ''} as User;
+  userInfo = { userName: '' } as User;
   feelingValue: number = 5;
   answers: string[] = ['', '', '', ''];
   questions: Array<Array<string>> = [[
-    `Hi ${this.userInfo.userName}, how are you feeling today?`, 
-    `We are truly sorry to hear you feel this way, ${this.userInfo.userName}. What led to these feelings?`, 
-    `What thoughts arose from this situation?`, 
+    `Hi ${this.userInfo.userName}, how are you feeling today?`,
+    `We are truly sorry to hear you feel this way, ${this.userInfo.userName}. What led to these feelings?`,
+    `What thoughts arose from this situation?`,
     `How can you respond to this differently?`,
     `How can you reframe this situation?`],
-    [
-      `Hi ${this.userInfo.userName}, how are you feeling today?`, 
-    `Glad to hear you are doing alright, ${this.userInfo.userName}. What led to these feelings?`, 
-    `What thoughts arose from this situation?`, 
+  [
+    `Hi ${this.userInfo.userName}, how are you feeling today?`,
+    `Glad to hear you are doing alright, ${this.userInfo.userName}. What led to these feelings?`,
+    `What thoughts arose from this situation?`,
     `How can you look at this differently?`,
     `How can you reframe this situation?`
-    ],
-    [
-      `Hi ${this.userInfo.userName}, how are you feeling today?`, 
-    `Awesome work, ${this.userInfo.userName}! What has made you feel so good?`, 
-    `What thoughts arose from this situation?`, 
+  ],
+  [
+    `Hi ${this.userInfo.userName}, how are you feeling today?`,
+    `Awesome work, ${this.userInfo.userName}! What has made you feel so good?`,
+    `What thoughts arose from this situation?`,
     `Why has this made you feel so great?`,
     `How can you incorporate more of this into your life?`
-    ]];;
+  ]];;
   dateTitle: string;
   readOnly: boolean = false;
   week: string
@@ -57,8 +59,8 @@ export class PerspectiveDetailPage {
   day: string;
   dayCode: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public viewCtrl: ViewController, public events: Events,
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController, public events: Events, private helper: HelperService,
     private aFdatabase: AngularFireDatabase, private afAuth: AngularFireAuth, private alertCtrl: AlertController) {
   }
 
@@ -73,31 +75,31 @@ export class PerspectiveDetailPage {
     if (this.navParams.get('dayCode')) {
       this.dayCode = this.navParams.get('dayCode');
     }
-    if (this.navParams.get('closeAllModals')){
+    if (this.navParams.get('closeAllModals')) {
       this.closeAllModals = true;
     }
     if (this.navParams.get('userName')) {
       this.userInfo.userName = this.navParams.get('userName');
       this.questions = [[
-        `Hi ${this.userInfo.userName}, how are you feeling today?`, 
-        `We are truly sorry to hear you feel this way, ${this.userInfo.userName}. What led to these feelings?`, 
-        `What thoughts arose from this situation?`, 
+        `Hi ${this.userInfo.userName}, how are you feeling today?`,
+        `We are truly sorry to hear you feel this way, ${this.userInfo.userName}. What led to these feelings?`,
+        `What thoughts arose from this situation?`,
         `How can you respond to this differently?`,
         `How can you reframe this situation?`],
-        [
-          `Hi ${this.userInfo.userName}, how are you feeling today?`, 
-        `Glad to hear you are doing alright, ${this.userInfo.userName}. What led to these feelings?`, 
-        `What thoughts arose from this situation?`, 
+      [
+        `Hi ${this.userInfo.userName}, how are you feeling today?`,
+        `Glad to hear you are doing alright, ${this.userInfo.userName}. What led to these feelings?`,
+        `What thoughts arose from this situation?`,
         `How can you look at this differently?`,
         `How can you reframe this situation?`
-        ],
-        [
-          `Hi ${this.userInfo.userName}, how are you feeling today?`, 
-        `Awesome work, ${this.userInfo.userName}! What has made you feel so good?`, 
-        `What thoughts arose from this situation?`, 
+      ],
+      [
+        `Hi ${this.userInfo.userName}, how are you feeling today?`,
+        `Awesome work, ${this.userInfo.userName}! What has made you feel so good?`,
+        `What thoughts arose from this situation?`,
         `Why has this made you feel so great?`,
         `How can you incorporate more of this into your life?`
-        ]];
+      ]];
     }
     this.dateTitle = moment().format('DD-MM');
     if (this.navParams.get('TimeStamp')) {
@@ -114,7 +116,7 @@ export class PerspectiveDetailPage {
       this.questions[0][2] = this.navParams.get('q3');
       this.questions[0][3] = this.navParams.get('q4');
       this.questions[0][4] = this.navParams.get('q5');
-    } 
+    }
     if (this.navParams.get('tutorial')) {
       let alert = this.alertCtrl.create({
         title: 'Tutorial',
@@ -127,7 +129,7 @@ export class PerspectiveDetailPage {
       });
       alert.present();
     }
-   
+
     this.getWeek();
     this.getYear();
   }
@@ -140,49 +142,47 @@ export class PerspectiveDetailPage {
   }
 
   onSave() {
-    if (this.dayNumber < 0 ) {
+    if (this.dayNumber < 0) {
       this.dayNumber = 0;
     }
 
     let time = moment().format('DD-MM-YYYY HH:mm:SS');
-    let date = moment().format('DD-MM-YYYY');
-    var weekObj = {
-      TimeStamp: time,
-      Value: this.feelingValue,
-      a1: this.answers[0],
-      a2: this.answers[1],
-      a3: this.answers[2],
-      a4: this.answers[3],
+    let date = moment().format('DD-MM');
+    const weekObj: ICbtEntry = {
+      timeStamp: time,
+      a1: 1,
+      a2: this.answers[0],
+      a3: this.answers[1],
+      a4: this.answers[2],
+      a5: this.answers[3],
       q1: this.questions[this.questionSelector][0],
       q2: this.questions[this.questionSelector][1],
       q3: this.questions[this.questionSelector][2],
       q4: this.questions[this.questionSelector][3],
       q5: this.questions[this.questionSelector][4],
-      Title: this.week,
-      Day: this.day,
-      dayCode: this.dayCode
     }
-    var updateCBT = {};
-    updateCBT[time] = weekObj
+    // var updateCBT = {};
+    // updateCBT[time] = weekObj
 
-    var updateValue = {};
-    this.yearCount = this.yearCount + 1;
-    this.yearSum = this.yearSum + this.feelingValue;
-    updateValue[date] = {test: this.feelingValue};
-    updateValue['/Month/' + moment().format('MM') + '/' + date] = {Day: moment().format('DD'), Value: this.feelingValue};
-    updateValue['/Week/' + `${this.weekNumber}/` + `${this.dayNumber}`] = weekObj;
-    updateValue['/Year/' + moment().format('MM')] = {Count: this.yearCount, Month: moment().format('MMM'), Sum: this.yearSum};
+    // var updateValue = {};
+    // this.yearCount = this.yearCount + 1;
+    // this.yearSum = this.yearSum + this.feelingValue;
+    // updateValue[date] = {test: this.feelingValue};
+    // updateValue['/Month/' + moment().format('MM') + '/' + date] = {Day: moment().format('DD'), Value: this.feelingValue};
+    // updateValue['/Week/' + `${this.weekNumber}/` + `${this.dayNumber}`] = weekObj;
+    // updateValue['/Year/' + moment().format('MM')] = {Count: this.yearCount, Month: moment().format('MMM'), Sum: this.yearSum};
 
 
-    let db = this.aFdatabase.list(this.afAuth.auth.currentUser.uid);
-    db.update('CBT', updateCBT);
-    db.update('CBTValues', updateValue);
+    // let db = this.aFdatabase.list(this.afAuth.auth.currentUser.uid);
+    // db.update('CBT', updateCBT);
+    // db.update('CBTValues', updateValue);
+    this.helper.addNewEntry(this.afAuth.auth.currentUser.uid, weekObj, date);
 
     this.close();
-    
+
   }
 
- getWeek(): any {
+  getWeek(): any {
     let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Week');
     dbW.valueChanges().subscribe((data) => {
       this.weekNumber = data.length;
@@ -193,18 +193,18 @@ export class PerspectiveDetailPage {
         this.dayNumber = 1;
       }
     });
-  } 
+  }
 
   getYear() {
     let dbW = this.aFdatabase.list(this.afAuth.auth.currentUser.uid + '/CBTValues/Year/01');
     dbW.valueChanges().subscribe((data) => {
       let obj = data;
-    if (obj.length > 0) {
-      let yearCount = obj[0] as number;
-      this.yearCount = yearCount;
-      let yearSum = obj[2] as number;
-      this.yearSum = yearSum;
-    }
+      if (obj.length > 0) {
+        let yearCount = obj[0] as number;
+        this.yearCount = yearCount;
+        let yearSum = obj[2] as number;
+        this.yearSum = yearSum;
+      }
     });
   }
 
@@ -229,12 +229,12 @@ export class PerspectiveDetailPage {
   }
 
   onFeelingValueChange() {
-    if (this.feelingValue < 5 ) {
+    if (this.feelingValue < 5) {
       this.questionSelector = 0;
     } else if (this.feelingValue < 8) {
       this.questionSelector = 1;
     } else {
-      this.questionSelector = 2;      
+      this.questionSelector = 2;
     }
   }
 
